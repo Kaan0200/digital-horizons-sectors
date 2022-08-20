@@ -1,0 +1,12 @@
+{
+    "id": "002",
+    "type": "PLNT",
+
+    "name": "Techno Zone",
+    "desc": "A voyage through pounding beats.",
+
+    "file": "./PLNT002_192k.mp3",
+
+    "height": 2,
+    "width": 1
+}

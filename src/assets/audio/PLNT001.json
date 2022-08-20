@@ -1,0 +1,12 @@
+{
+    "id": "001",
+    "type": "PLNT",
+
+    "name": "Mystery Space",
+    "desc": "A voyage through a dark and swirling space.",
+
+    "file": "./PLNT002_192k.mp3",
+
+    "height": 3,
+    "width": 2
+}
