@@ -1,8 +1,11 @@
 import { isObject } from 'mobx/dist/internal';
 
-import one from './audio/PLNT001.json';
-import two from './audio/PLNT002.json';
-import three from './audio/PLNT003.json';
+import data_one from './audio/PLNT001.json';
+import data_two from './audio/PLNT002.json';
+import mix_one from './audio/PLNT002_192k.mp3';
+import data_three from './audio/PLNT003.json';
+import mix_two from './audio/PLNT003_192k.mp3';
+import mix_three from './audio/PLNT004_192k.mp3';
 
 export interface MixData {
   id: string;
@@ -26,15 +29,15 @@ export interface Mix {
 
 export const mixes: Mix[] = [
   {
-    data: one,
-    audio: './audio/PLNT002_192k.mp3',
+    data: data_one,
+    audio: mix_one,
   },
   {
-    data: two,
-    audio: './audio/PLNT003_192k.mp3',
+    data: data_two,
+    audio: mix_two,
   },
   {
-    data: three,
-    audio: './audio/PLNT004_192k.mp3',
+    data: data_three,
+    audio: mix_three,
   },
 ];

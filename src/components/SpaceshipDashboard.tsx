@@ -12,7 +12,8 @@ import { ConsoleTyper } from './ConsoleTyper';
 
 interface SpaceshipDashboardProps {
   mixData: MixData | null;
-  filename: any | null;
+  file: any | null;
+  audioRef: React.RefObject<HTMLAudioElement>;
 }
 
 enum PlayerStatus {
@@ -34,40 +35,49 @@ export class SpaceshipDashboard extends React.Component<SpaceshipDashboardProps>
 
   render(): JSX.Element {
     return (
-      <div className="flex m-8">
-        {this.props.mixData?.filename?.toString()}
-        {this.props.filename && (
-          <audio controls>
-            <source src={this.props.filename} type="audio/mpeg" />
+      <div className="">
+        {this.props.mixData?.file?.toString()}
+        {this.props.file && (
+          <audio
+            controls
+            ref={this.props.audioRef}
+            onTimeUpdate={() => {}}
+            onLoadedMetadata={(e) => console.log(e.target?.duration)}
+          >
+            <source src={this.props.file} type="audio/mpeg" />
             <track kind="captions" label="audio-player-dashboard" />
           </audio>
         )}
-        <div className="mr-4" style={{ width: '64px' }}>
-          {this.status === PlayerStatus.Empty ?? (
-            <>
-              <Select />
-            </>
-          )}
-          {this.status === PlayerStatus.Playing ?? (
-            <button onClick={() => (this.status = PlayerStatus.Paused)}>
-              <Play />
-            </button>
-          )}
-          {this.status === PlayerStatus.Paused ?? (
-            <button onClick={() => (this.status = PlayerStatus.Playing)}>
-              <Stop />
-            </button>
-          )}
+        {this.props.file}
+        <div>
+          <div className="mr-4" style={{ width: '64px' }}>
+            {this.status === PlayerStatus.Empty ?? (
+              <>
+                <Select />
+              </>
+            )}
+            {this.status === PlayerStatus.Playing ?? (
+              <button onClick={() => (this.status = PlayerStatus.Paused)}>
+                <Play />
+              </button>
+            )}
+            {this.status === PlayerStatus.Paused ?? (
+              <button onClick={() => (this.status = PlayerStatus.Playing)}>
+                <Stop />
+              </button>
+            )}
+          </div>
+          {this.status}
+          {/* <ConsoleTyper
+            speed={80}
+            flicks={10}
+            message={
+              this.status === PlayerStatus.Empty
+                ? EMPTY_MESSAGE
+                : this.props.mixData?.desc ?? 'unknown'
+            }
+          /> */}
         </div>
-        <ConsoleTyper
-          speed={80}
-          flicks={10}
-          message={
-            this.status === PlayerStatus.Empty
-              ? EMPTY_MESSAGE
-              : this.props.mixData?.id ?? 'unknown'
-          }
-        />
       </div>
     );
   }
