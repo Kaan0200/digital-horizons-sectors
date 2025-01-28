@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 import * as React from 'react';
 
-import { ReactComponent as Star } from '../assets/icons/star.svg';
+//import { ReactComponent as Star } from '../assets/icons/star.svg';
 
 interface SpaceStarProps {
   position: { x: number; y: number };
@@ -15,14 +15,14 @@ export function SpaceStar(props: SpaceStarProps): JSX.Element {
       key={`star-${position.x}${position.y}`}
       style={{ top: position.x, right: position.y, position: 'absolute' }}
     >
-      <Star
+{/*      <Star
         className={'text-gray-700'}
         stroke={'#222222'}
         style={{
           height: size,
           width: size,
         }}
-      />
+      />*/}
     </div>
   );
 }
