@@ -1,3 +1,9 @@
+# Digital Horizons Sectors 🌌
+
+
+## With features based on
+- https://css-tricks.com/hexagons-and-beyond-flexible-responsive-grid-patterns-sans-media-queries/
+
 # Vite + React + Typescript + Eslint + Prettier
 
 A starter for React with Typescript with the fast Vite and all static code testing with Eslint and formatting with Prettier.

@@ -5,8 +5,13 @@ a {
 }
 
 body {
-    background-size: 50px 50px;
-      background-image:
-        linear-gradient(to right, grey 1px, transparent 1px),
-        linear-gradient(to bottom, grey 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, grey 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
+}
+
+
+#rhombus {
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
 }

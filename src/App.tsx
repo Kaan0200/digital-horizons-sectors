@@ -33,14 +33,27 @@ export default class App extends React.Component {
     return (
       /** */
       <div className="flex h-lvh w-lvw text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-sky-500">
-        <div className="flex backdrop-blur-lg m-auto">
-          <div className="flex justify-center bg-zinc-400 opacity-25 w-64 h-64 ">
+        <div className="backdrop-blur-lg m-auto font-0">
+          {mixes.map((mix: Mix, index: Number) => <>
+            <div id="rhombus" className="bg-white w-32 m-4 h-32 -mb-16 inline-block [clip-path:polygon(50% 0, 100% 50%, 50% 100%, 0 50%)]">
+            </div>
 
-          </div>
-          
+            <div id="rhombus" className="bg-white w-32 m-4 h-32 -mb-16 inline-block [clip-path:polygon(50% 0, 100% 50%, 50% 100%, 0 50%)]">
+            </div>
 
-        
-       {/*    <GalaxyMap stars={40}>
+            <div id="rhombus" className="bg-white w-32 m-4 h-32 -mb-16 inline-block [clip-path:polygon(50% 0, 100% 50%, 50% 100%, 0 50%)]">
+            </div>
+
+            <div id="rhombus" className="bg-white w-32 m-4 h-32 -mb-16 inline-block [clip-path:polygon(50% 0, 100% 50%, 50% 100%, 0 50%)]">
+            </div>
+          </>
+          )}
+
+
+
+
+
+          {/*    <GalaxyMap stars={40}>
             <div className="flex flex-row flex-wrap">
               {mixes.map((mix: Mix, index: number) => {
                 return (
@@ -55,8 +68,8 @@ export default class App extends React.Component {
               })}
             </div>
           </GalaxyMap> */}
-          </div>
         </div>
+      </div>
     );
   }
 }
