@@ -1,7 +1,7 @@
 /// <reference types="vite-plugin-svgr/client" />
 import * as React from 'react';
 
-import { ReactComponent as Star } from '../assets/icons/star.svg';
+import Star from '../assets/icons/star.svg';
 
 interface SpaceStarProps {
   position: { x: number; y: number };

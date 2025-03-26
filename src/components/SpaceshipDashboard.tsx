@@ -3,10 +3,10 @@ import { makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
 import React from 'react';
 
-import { ReactComponent as Eject } from '../assets/icon/eject.svg';
-import { ReactComponent as Select } from '../assets/icons/select.svg';
-import { ReactComponent as Play } from '../assets/icons/start.svg';
-import { ReactComponent as Stop } from '../assets/icons/stop.svg';
+import Eject from '../assets/icon/eject.svg';
+import Select from '../assets/icons/select.svg';
+import Play from '../assets/icons/start.svg';
+import Stop from '../assets/icons/stop.svg';
 import { MixData } from '../assets/mixes';
 import { ConsoleTyper } from './ConsoleTyper';
 
@@ -41,7 +41,7 @@ export class SpaceshipDashboard extends React.Component<SpaceshipDashboardProps>
           <audio
             controls
             ref={this.props.audioRef}
-            onTimeUpdate={() => {}}
+            onTimeUpdate={() => { }}
             onLoadedMetadata={(e) => console.log(e.target?.duration)}
           >
             <source src={this.props.file} type="audio/mpeg" />

@@ -2,9 +2,9 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { ReactComponent as Crew } from '../assets/icons/crew.svg';
-import { ReactComponent as Planet } from '../assets/icons/planet.svg';
-import { ReactComponent as Satellite } from '../assets/icons/satellite.svg';
+import { ReactElement as Crew } from '../assets/icons/crew.svg?react';
+import { ReactElement as Planet } from '../assets/icons/planet.svg?react';
+import { ReactElement as Satellite } from '../assets/icons/satellite.svg?react';
 import { MixData, MixType } from '../assets/mixes';
 
 interface SpaceSectorProps {
