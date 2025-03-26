@@ -7,6 +7,8 @@ import { GalaxyMap } from './components/GalaxyMap';
 import { SpaceSector } from './components/SpaceSector';
 import { SpaceshipDashboard } from './components/SpaceshipDashboard';
 
+const TILE_SIZE: number = 80;
+
 @observer
 export default class App extends React.Component {
   @observable public selectedMixIdx: number = -1;
@@ -29,9 +31,16 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="flex flex-col h-screen bg-zinc-900 text-white">
-        <div className="flex flex-1 overflow-y-scroll">
-          <GalaxyMap stars={40}>
+      /** */
+      <div className="flex h-lvh w-lvw text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-sky-500">
+        <div className="flex backdrop-blur-lg m-auto">
+          <div className="flex justify-center bg-zinc-400 opacity-25 w-64 h-64 ">
+
+          </div>
+          
+
+        
+       {/*    <GalaxyMap stars={40}>
             <div className="flex flex-row flex-wrap">
               {mixes.map((mix: Mix, index: number) => {
                 return (
@@ -45,22 +54,9 @@ export default class App extends React.Component {
                 );
               })}
             </div>
-          </GalaxyMap>
+          </GalaxyMap> */}
+          </div>
         </div>
-        <div
-          className="block bottom-0 bg-slate-700 z-10"
-          style={{
-            height: '8em',
-          }}
-        >
-          <div className="h-4 bg-gray-900"></div>
-          <SpaceshipDashboard
-            audioRef={this._playerRef}
-            mixData={this.selectedMixIdx === -1 ? null : mixes[this.selectedMixIdx].data}
-            file={this.selectedMixIdx === -1 ? null : this.currentAudio}
-          />
-        </div>
-      </div>
     );
   }
 }

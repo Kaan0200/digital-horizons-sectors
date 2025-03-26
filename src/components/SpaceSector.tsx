@@ -2,9 +2,9 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
-import { ReactElement as Crew } from '../assets/icons/crew.svg?react';
-import { ReactElement as Planet } from '../assets/icons/planet.svg?react';
-import { ReactElement as Satellite } from '../assets/icons/satellite.svg?react';
+//import { ReactComponent as Crew } from '../assets/icons/crew.svg';
+//import { ReactComponent as Planet } from '../assets/icons/planet.svg';
+//import { ReactComponent as Satellite } from '../assets/icons/satellite.svg';
 import { MixData, MixType } from '../assets/mixes';
 
 interface SpaceSectorProps {
@@ -19,11 +19,11 @@ export class SpaceSector extends React.Component<SpaceSectorProps> {
   render() {
     const { mixData, selected, onClick } = this.props;
 
-    const iconMap: Map<MixType, JSX.Element> = new Map([
-      [MixType.Planet, <Planet key="p-icon" />],
-      [MixType.Crew, <Crew key="c-icon" />],
-      [MixType.Satellite, <Satellite key="s-icon" />],
-    ]);
+    //const iconMap: Map<MixType, JSX.Element> = new Map([
+    //  [MixType.Planet, <Planet key="p-icon" />],
+    //  [MixType.Crew, <Crew key="c-icon" />],
+    //  [MixType.Satellite, <Satellite key="s-icon" />],
+    //]);
 
     return (
       <div
@@ -40,7 +40,7 @@ export class SpaceSector extends React.Component<SpaceSectorProps> {
       >
         <div className="flex justify-center h-full items-center">
           {selected}
-          {iconMap.get(mixData.type)}
+          {/*iconMap.get(mixData.type)*/}
           {mixData.id}
         </div>
       </div>
