@@ -4,14 +4,36 @@ a {
   @apply underline text-blue-600 text-blue-800 text-purple-600;
 }
 
-body {
-  background-size: 50px 50px;
-  background-image:
-    linear-gradient(to right, grey 1px, transparent 1px),
-    linear-gradient(to bottom, grey 1px, transparent 1px);
+.main {
+  display: flex;
+  --s: 260px;
+  /* size  */
+  --m: 4px;
+  /* space */
+  --r: calc(var(--s) + 4*var(--m) - 2px);
 }
 
+.rhombox {
+  font-size: 0;
+  /*disable white space between inline block element */
+}
 
-#rhombus {
+.rhombox div {
+  width: var(--s);
+  margin: var(--m);
+  height: var(--s);
+  display: inline-block;
+  font-size: initial;
   clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  background: white;
+  margin-bottom: calc(var(--m) - var(--s)*0.5);
+}
+
+.rhombox::before {
+  content: "";
+  width: calc(var(--s)/2 + var(--m));
+  float: left;
+  height: 140%;
+  shape-outside: repeating-linear-gradient(#0000 0 calc(var(--r) - 3px),
+      #000 0 var(--r));
 }
