@@ -2,11 +2,35 @@ import * as React from 'react';
 
 import { SpaceStar } from './SpaceStar';
 
+import { Mix, mixes } from '../assets/mixes';
+import { SpaceSector } from './SpaceSector';
+
 export interface MapProps {
-  stars: number;
-  children: JSX.Element;
+  sectorCount: number;
 }
 
+export class GalaxyMap extends React.Component<MapProps> {
+
+  render() {
+    let renderAgg: React.JSX.Element[] = [];
+
+    for (let i = 0; i < this.props.sectorCount; i++) {
+      renderAgg.push(
+        <SpaceSector
+          onClick={() => { }}
+          selected={false}
+          key={`${i}-sector`}
+          index={i}
+          disabled={i >= mixes.length}
+        />
+      )
+    }
+    return <>{renderAgg}</>
+  }
+}
+
+
+/**  OLD CLASS
 export class GalaxyMap extends React.Component<MapProps> {
   private _MapSize: number = 2000;
   private _IconCeiling: number = 32;
@@ -55,3 +79,4 @@ export class GalaxyMap extends React.Component<MapProps> {
     );
   }
 }
+  */

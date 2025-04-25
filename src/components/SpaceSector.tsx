@@ -8,16 +8,21 @@ import * as React from 'react';
 import { MixData, MixType } from '../assets/mixes';
 
 interface SpaceSectorProps {
-  mixData: MixData;
+  //mixData: MixData;
   onClick: () => void;
   selected: boolean;
   index: number;
+  disabled: boolean;
 }
 
 @observer
 export class SpaceSector extends React.Component<SpaceSectorProps> {
   render() {
-    const { mixData, selected, onClick } = this.props;
+    const {
+      selected,
+      index,
+      onClick
+    }: Partial<SpaceSectorProps> = this.props;
 
     //const iconMap: Map<MixType, JSX.Element> = new Map([
     //  [MixType.Planet, <Planet key="p-icon" />],
@@ -27,22 +32,16 @@ export class SpaceSector extends React.Component<SpaceSectorProps> {
 
     return (
       <div
-        className="rounded-lg border-solid border-2 border-transparent hover:border-dashed hover:border-yellow-400 h-32 w-h32 cursor-pointer"
-        style={{
-          width: `${mixData.width * 8}em`,
-          height: `${mixData.height * 8}em`,
-          color: selected ? 'gold' : '',
-        }}
-        role="button"
         tabIndex={this.props.index}
         onClick={onClick}
         onKeyUp={onClick}
+        className={this.props.disabled ?
+          "bg-slate-100/30 align-middle" :
+          "text-center content-center text-red-950 align-middle bg-slate-100/50 hover:bg-sky-400"}
       >
-        <div className="flex justify-center h-full items-center">
-          {selected}
-          {/*iconMap.get(mixData.type)*/}
-          {mixData.id}
-        </div>
+        {selected}
+        MIX-{index}
+        {/*iconMap.get(mixData.type)*/}
       </div>
     );
   }

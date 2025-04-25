@@ -4,6 +4,11 @@ a {
   @apply underline text-blue-600 text-blue-800 text-purple-600;
 }
 
+#root {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
 .main {
   display: flex;
   --s: 260px;
@@ -18,14 +23,13 @@ a {
   /*disable white space between inline block element */
 }
 
-.rhombox div {
+.rhombox>div {
   width: var(--s);
   margin: var(--m);
   height: var(--s);
   display: inline-block;
   font-size: initial;
   clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
-  background: white;
   margin-bottom: calc(var(--m) - var(--s)*0.5);
 }
 

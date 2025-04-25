@@ -34,15 +34,8 @@ export default class App extends React.Component {
       /** */
       <div className="main flex h-lvh w-lvw text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-sky-500">
         <div className="rhombox backdrop-blur-lg">
-          {mixes.map((mix: Mix, index: Number) => <>
-            <div  >
-              OO1
-            </div>
-            <div  >
-              Testie
-            </div>
-          </>
-          )}
+          <GalaxyMap sectorCount={TILE_SIZE} />
+
 
 
 
