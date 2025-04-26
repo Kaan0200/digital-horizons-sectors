@@ -16,6 +16,14 @@ a {
   --m: 4px;
   /* space */
   --r: calc(var(--s) + 4*var(--m) - 2px);
+
+  /* Generate different sets of box-shadow values for stars of varying sizes */
+  /* Small stars */
+    --shadows-small: multiple-box-shadow(700); 
+  /* Medium stars */
+    --shadows-medium: multiple-box-shadow(200); 
+  /*  Big stars */
+    --shadows-big: multiple-box-shadow(100); 
 }
 
 .rhombox {
@@ -41,3 +49,4 @@ a {
   shape-outside: repeating-linear-gradient(#0000 0 calc(var(--r) - 3px),
       #000 0 var(--r));
 }
+

@@ -1,11 +1,12 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { AudioHTMLAttributes, useState } from 'react';
+import React, { AudioHTMLAttributes, useEffect, useState } from 'react';
 
 import { Mix, mixes } from './assets/mixes';
 import { GalaxyMap } from './components/GalaxyMap';
 import { SpaceSector } from './components/SpaceSector';
 import { SpaceshipDashboard } from './components/SpaceshipDashboard';
+import Starfield from './components/Starfield';
 
 const TILE_SIZE: number = 80;
 
@@ -29,10 +30,12 @@ export default class App extends React.Component {
     this._playerRef.current?.load();
   }
 
+
+
   render() {
     return (
       /** */
-      <div className="main flex h-lvh w-lvw text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-sky-500">
+      <div className="main flex h-lvh w-lvw text-white opacity-90 bg-neutral-950">
         <div className="rhombox backdrop-blur-lg">
           <GalaxyMap sectorCount={TILE_SIZE} />
 
@@ -58,7 +61,9 @@ export default class App extends React.Component {
           </GalaxyMap > */
           }
         </div>
+        <Starfield speedFactor={0.01}  />
       </div >
+      
     );
   }
 }
