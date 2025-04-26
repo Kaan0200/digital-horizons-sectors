@@ -2,18 +2,30 @@ import './index.css';
 
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import App from './App';
+import SectorDetail from './components/SectorDetail';
 
 
 const container = document.getElementById('root');
 const root = createRoot(container!);
 
+let router = createBrowserRouter([
+  {
+    path: "/",
+    Component: App,
+    children: [
+      {
+        path: "/:id", Component: SectorDetail
+      }
+    ]
+    //loader: loadRootData,
+  },
+]);
+
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </React.StrictMode>,
 );

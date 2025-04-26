@@ -25,6 +25,7 @@ interface Props {
  * 
  * - pass-thru for tailwindcss
  * - when the stars are moving, they are rainbow colored
+ * (assistance from https://justinparrtech.com/JustinParr-Tech/spectrum-generating-color-function-using-sine-waves/ )
  */
 export default function Starfield(props: Props) {
 	const { speedFactor = 0.05, backgroundColor = 'black', restColor = [255, 255, 255], starCount = 5000 } = props;

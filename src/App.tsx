@@ -7,6 +7,7 @@ import { GalaxyMap } from './components/GalaxyMap';
 import { SpaceSector } from './components/SpaceSector';
 import { SpaceshipDashboard } from './components/SpaceshipDashboard';
 import Starfield from './components/Starfield';
+import { Outlet, useNavigate } from 'react-router';
 
 const TILE_SIZE: number = 80;
 
@@ -33,11 +34,25 @@ export default class App extends React.Component {
 
 
   render() {
+    let renderAgg = [];
+
+    for (let i = 0; i < TILE_SIZE; i++) {
+      renderAgg.push(
+        <SpaceSector
+          targetId={i.toString()}
+          selected={false}
+          key={`${i}-sector`}
+          index={i}
+          disabled={i >= mixes.length}
+        />)
+    }
+
     return (
       /** */
       <div className="main flex h-lvh w-lvw text-white opacity-90 bg-neutral-950">
         <div className="rhombox backdrop-blur-lg">
-          <GalaxyMap sectorCount={TILE_SIZE} />
+
+          <>{renderAgg}</>
 
 
 
@@ -61,7 +76,8 @@ export default class App extends React.Component {
           </GalaxyMap > */
           }
         </div>
-        <Starfield speedFactor={0.01}  />
+        <Starfield speedFactor={0.01} />
+        <Outlet />
       </div >
       
     );

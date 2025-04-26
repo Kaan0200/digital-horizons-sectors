@@ -14,18 +14,8 @@ export class GalaxyMap extends React.Component<MapProps> {
   render() {
     let renderAgg: React.JSX.Element[] = [];
 
-    for (let i = 0; i < this.props.sectorCount; i++) {
-      renderAgg.push(
-        <SpaceSector
-          onClick={() => { }}
-          selected={false}
-          key={`${i}-sector`}
-          index={i}
-          disabled={i >= mixes.length}
-        />
-      )
-    }
-    return <>{renderAgg}</>
+
+    return null;
   }
 }
 
