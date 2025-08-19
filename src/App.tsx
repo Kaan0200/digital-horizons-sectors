@@ -6,6 +6,7 @@ import { Mix, mixes } from './assets/mixes';
 import { GalaxyMap } from './components/GalaxyMap';
 import { SpaceSector } from './components/SpaceSector';
 import { SpaceshipDashboard } from './components/SpaceshipDashboard';
+import ViewBox from './components/ViewBox';
 
 const TILE_SIZE: number = 80;
 
@@ -34,10 +35,10 @@ export default class App extends React.Component {
       /** */
       <div className="main flex h-lvh w-lvw text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-sky-500">
         <div className="rhombox backdrop-blur-lg">
-          <GalaxyMap sectorCount={TILE_SIZE} />
+          {/**<GalaxyMap sectorCount={TILE_SIZE} /> **/}
 
 
-
+          <ViewBox />
 
 
 
