@@ -1,4 +1,3 @@
-import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
 
@@ -6,46 +5,41 @@ import * as React from 'react';
 //import { ReactComponent as Planet } from '../assets/icons/planet.svg';
 //import { ReactComponent as Satellite } from '../assets/icons/satellite.svg';
 import { MixData, MixType } from '../assets/mixes';
-import { useNavigate } from 'react-router';
 
 interface SpaceSectorProps {
-  //mixData: MixData;
-  targetId: string;
-  selected: boolean;
-  index: number;
-  disabled: boolean;
+  locationKey: number;
+  active: boolean;
 }
 
+interface ActiveSpaceSectorProps extends SpaceSectorProps {
+  active: true;
+}
 
-export function SpaceSector(props: SpaceSectorProps): React.JSX.Element {
-    const {
-      selected,
-      index,
-      targetId
-    }: Partial<SpaceSectorProps> = props;
+interface InActiveSpaceSectorProps extends SpaceSectorProps {
+  active: false;
+}
 
-    //const iconMap: Map<MixType, JSX.Element> = new Map([
-    //  [MixType.Planet, <Planet key="p-icon" />],
-    //  [MixType.Crew, <Crew key="c-icon" />],
-    //  [MixType.Satellite, <Satellite key="s-icon" />],
-  //]);
+@observer
+export class SpaceSector extends React.Component<SpaceSectorProps> {
+  render() {
+    const { active, locationKey }: Partial<SpaceSectorProps> = this.props;
 
-        let nav = useNavigate();
-            
+    return (
+      active ?
+       <div key={locationKey} style={{
+            width: "120px",
+            height: "120px",
+            border: "1px cyan dashed"
+          }}>
+          </div> :
+          <div key={locationKey} style={{
+            width: "120px",
+            height: "120px",
+            border: "1px black dashed"
+          }}>
 
-
-    return <div
-        tabIndex={props.index}
-        onClick={() => props.disabled ? undefined : nav("/" + targetId)}
-        onKeyUp={() => props.disabled ? undefined : nav("/" + targetId)}
-        className={props.disabled ?
-          "bg-slate-100/10 align-middle" :
-          "text-center content-center text-white align-middle border-dashed border-red-200 hover:bg-sky-400"}
-      >
-        {selected}
-        MIX-{index}
-        {/*iconMap.get(mixData.type)*/}
-      </div>
-    
+        </div>
+    );
   }
+}
 

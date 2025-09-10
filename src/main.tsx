@@ -1,15 +1,15 @@
 import './index.css';
 
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router';
+import { createRoot, Root } from 'react-dom/client';
+import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
 import SectorDetail from './components/SectorDetail';
 
 
 const container = document.getElementById('root');
-const root = createRoot(container!);
+const root: Root = createRoot(container!);
 
 let router = createBrowserRouter([
   {
