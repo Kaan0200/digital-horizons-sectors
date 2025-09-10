@@ -34,22 +34,12 @@ export default class App extends React.Component {
 
       if (setPlacements.filter((set) => set.location === i).length !== 0) {
         gridSquares.push(
-          <div key={i} style={{
-            width: "120px",
-            height: "120px",
-            border: "1px cyan dashed"
-          }}>
-          </div>
+          <SpaceSector active locationKey={i}></SpaceSector>
         )
       } else {
         gridSquares.push(
-          <div key={i} style={{
-            width: "120px",
-            height: "120px",
-            border: "1px black dashed"
-          }}>
-
-        </div>);
+          <SpaceSector active={false} locationKey={i}></SpaceSector>
+        );  
       }
     }
 

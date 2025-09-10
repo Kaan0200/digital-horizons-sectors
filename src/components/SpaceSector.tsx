@@ -8,41 +8,39 @@ import * as React from 'react';
 import { MixData, MixType } from '../assets/mixes';
 
 interface SpaceSectorProps {
-  //mixData: MixData;
-  onClick: () => void;
-  selected: boolean;
-  index: number;
-  disabled: boolean;
+  locationKey: number;
+  active: boolean;
+}
+
+interface ActiveSpaceSectorProps extends SpaceSectorProps {
+  active: true;
+}
+
+interface InActiveSpaceSectorProps extends SpaceSectorProps {
+  active: false;
 }
 
 @observer
 export class SpaceSector extends React.Component<SpaceSectorProps> {
   render() {
-    const {
-      selected,
-      index,
-      onClick
-    }: Partial<SpaceSectorProps> = this.props;
-
-    //const iconMap: Map<MixType, JSX.Element> = new Map([
-    //  [MixType.Planet, <Planet key="p-icon" />],
-    //  [MixType.Crew, <Crew key="c-icon" />],
-    //  [MixType.Satellite, <Satellite key="s-icon" />],
-    //]);
+    const { active, locationKey }: Partial<SpaceSectorProps> = this.props;
 
     return (
-      <div
-        tabIndex={this.props.index}
-        onClick={onClick}
-        onKeyUp={onClick}
-        className={this.props.disabled ?
-          "bg-slate-100/30 align-middle" :
-          "text-center content-center text-red-950 align-middle bg-slate-100/50 hover:bg-sky-400"}
-      >
-        {selected}
-        MIX-{index}
-        {/*iconMap.get(mixData.type)*/}
-      </div>
+      active ?
+       <div key={locationKey} style={{
+            width: "120px",
+            height: "120px",
+            border: "1px cyan dashed"
+          }}>
+          </div> :
+          <div key={locationKey} style={{
+            width: "120px",
+            height: "120px",
+            border: "1px black dashed"
+          }}>
+
+        </div>
     );
   }
 }
+
