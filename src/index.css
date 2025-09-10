@@ -7,8 +7,6 @@ a {
 #root {
   overflow-x: hidden;
   overflow-y: hidden;
-}
-
-.main {
-  display: flex;
+  width: 4800px;
+  height: 4200px;
 }
