@@ -35,6 +35,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.7",
     "postcss": "^8.5.1",
     "postcss-import": "^16.1.0",
     "pre-commit": "^1.2.2",
