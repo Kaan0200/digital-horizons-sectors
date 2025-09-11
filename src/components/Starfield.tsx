@@ -15,7 +15,7 @@ interface Props {
     /**
      * Pass-thru for accessing canvas ref
      */
-    ref?: React.Ref<any>;
+    ref?: React.Ref<HTMLDivElement>;
 }
 
 /** This file was copied from https://github.com/designly1/react-starfield
@@ -64,10 +64,9 @@ export default function Starfield(props: Props) {
 					return out;
 				};
 
-                let stars = makeStars(starCount);
+                const stars = makeStars(starCount);
 
                 let colorCounter: number = 0;
-                let bluePointer: number;
 
 				const clear = () => {
 					c.fillStyle = backgroundColor;
@@ -75,7 +74,7 @@ export default function Starfield(props: Props) {
 				};
 
                 const putPixel = (x: number, y: number, brightness: number) => {
-                    let rezColor = generateRGB(colorCounter++, 2000000);
+                    const rezColor = generateRGB(colorCounter++, 2000000);
 
 					const rgb =
 						'rgba(' + rezColor[0] + ',' + rezColor[1] + ',' + rezColor[2] + ',' + brightness + ')';
@@ -84,17 +83,17 @@ export default function Starfield(props: Props) {
                 };
                 
                 const generateRGB = (n: number, maximum: number): [r: number, g: number, b: number] => {
-                        let a = (15.7079*n) / (3 * maximum) + (1.5708);
-                        let r = Math.sin(a) * 192 + 128;
-                        let g = Math.sin(a - 2.0944) * 192 + 128;
-                    let b = Math.sin(a - 4.1888) * 192 + 128;
+                    const a = (15.7079*n) / (3 * maximum) + (1.5708);
+                    const r = Math.sin(a) * 192 + 128;
+                    const g = Math.sin(a - 2.0944) * 192 + 128;
+                    const b = Math.sin(a - 4.1888) * 192 + 128;
                     
                     return [r, g, b];
                     }
 
 				const moveStars = (distance: number) => {
 					const count = stars.length;
-					for (var i = 0; i < count; i++) {
+					for (let i = 0; i < count; i++) {
 						const s = stars[i];
 						s.z -= distance;
 						while (s.z <= 1) {
@@ -114,7 +113,7 @@ export default function Starfield(props: Props) {
 
                 // Animation looping function, asks to repeat every time the engine is ready to animate
 				const tick = (time: number) => {
-					let elapsed = time - prevTime;
+					const elapsed = time - prevTime;
 					prevTime = time;
 
                     moveStars(elapsed * speedFactor);
@@ -125,7 +124,7 @@ export default function Starfield(props: Props) {
 					const cy = h / 2;
 
 					const count = stars.length;
-					for (var i = 0; i < count; i++) {
+					for (let i = 0; i < count; i++) {
 						const star = stars[i];
 
 						const x = cx + star.x / (star.z * 0.001);

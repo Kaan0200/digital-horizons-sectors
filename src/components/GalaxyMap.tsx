@@ -1,9 +1,4 @@
-import * as React from 'react';
-
-import { SpaceStar } from './SpaceStar';
-
-import { Mix, mixes } from '../assets/mixes';
-import { SpaceSector } from './SpaceSector';
+import React from "react";
 
 export interface MapProps {
   sectorCount: number;
@@ -12,7 +7,7 @@ export interface MapProps {
 export class GalaxyMap extends React.Component<MapProps> {
 
   render() {
-    let renderAgg: React.JSX.Element[] = [];
+    //let renderAgg: React.JSX.Element[] = [];
 
 
     return null;

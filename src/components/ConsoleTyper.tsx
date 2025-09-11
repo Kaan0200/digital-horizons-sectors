@@ -20,7 +20,7 @@ export const ConsoleTyper = observer((props: ConsoleTyperProps) => {
 
   useEffect(() => {
     if (state.idx < props.message.length) {
-      let timerID = setInterval(() => {
+      const timerID = setInterval(() => {
         setState({
           txt: state.txt + props.message[state.idx],
           idx: state.idx + 1,

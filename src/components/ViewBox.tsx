@@ -1,16 +1,14 @@
+import React, { RefObject } from 'react';
+import { useState, useEffect } from 'react';
 
-interface ViewBoxProps {
-
-}
-
-export default function ViewBox(props: ViewBoxProps): JSX.Element {
+export default function ViewBox(): React.JSX.Element {
     const { height, width } = useWindowDimensions();
-    let outerRef: RefObject<HTMLDivElement | null> = React.createRef();
+    const outerRef: RefObject<HTMLDivElement> = React.createRef();
 
     return (
       <div
         ref={outerRef}
-        onScrollEnd={(e) => {
+        onScroll={(e) => {
           console.log("hit end.");
           console.log(e.detail)
         }}
@@ -23,9 +21,6 @@ export default function ViewBox(props: ViewBoxProps): JSX.Element {
         </div>
     )
 }
-
-import React, { RefObject } from 'react';
-import { useState, useEffect } from 'react';
 
 function getWindowDimensions() {
   const { innerWidth: width, innerHeight: height } = window;

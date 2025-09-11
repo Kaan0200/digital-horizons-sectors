@@ -2,7 +2,7 @@ import './index.css';
 
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
-import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
 import SectorDetail from './components/SectorDetail';
@@ -11,7 +11,7 @@ import SectorDetail from './components/SectorDetail';
 const container = document.getElementById('root');
 const root: Root = createRoot(container!);
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     Component: App,

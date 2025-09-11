@@ -9,7 +9,7 @@ interface SpaceStarProps {
 }
 
 export function SpaceStar(props: SpaceStarProps): JSX.Element {
-  const { size, position } = props;
+  const { position } = props;
   return (
     <div
       key={`star-${position.x}${position.y}`}

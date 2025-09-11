@@ -1,5 +1,3 @@
-import { isObject } from 'mobx/dist/internal';
-
 import data_one from './audio/PLNT001.json';
 import data_two from './audio/PLNT002.json';
 import mix_one from './audio/PLNT002_192k.mp3';
@@ -24,20 +22,20 @@ export enum MixType {
 
 export interface Mix {
   data: MixData;
-  audio: any;
+  audio: unknown; // mp3???
 }
 
 export const mixes: Mix[] = [
   {
-    data: data_one,
+    data: data_one as MixData,
     audio: mix_one,
   },
   {
-    data: data_two,
+    data: data_two as MixData,
     audio: mix_two,
   },
   {
-    data: data_three,
+    data: data_three as MixData,
     audio: mix_three,
   },
 ];

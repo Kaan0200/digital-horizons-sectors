@@ -1,12 +1,11 @@
 import React, { JSX, useEffect } from "react";
-import { useState } from "react";
 
 interface SpaceViewProps {
     children: Array<JSX.Element>;
 }
 
 export default function SpaceView(props: SpaceViewProps): JSX.Element {
-    const [state, setState] = useState();
+    //const [state, setState] = useState();
     const _windowRef: React.RefObject<HTMLDivElement | null> = React.createRef();
 
     useEffect(() => {

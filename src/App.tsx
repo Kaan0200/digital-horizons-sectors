@@ -9,7 +9,7 @@ const SQUARES: number = 1400;
 
 @observer
 export default class App extends React.Component {
-  constructor(props: any) {
+  constructor(props: React.PropsWithChildren) {
     super(props);
 
   }
@@ -18,7 +18,7 @@ export default class App extends React.Component {
 
   render() {
     // generate an index number for each set
-    let setPlacements: Array<{mix: Mix, location: number}> = [];
+    const setPlacements: Array<{mix: Mix, location: number}> = [];
     mixes.forEach((mix) => {
       setPlacements.push({
         mix: mix,
@@ -27,7 +27,7 @@ export default class App extends React.Component {
     })
 
     // create the grid squares, with the randomly inserted mixes
-    let gridSquares = [];
+    const gridSquares = [];
     for (let i = 0; i < SQUARES; i++) {
 
       if (setPlacements.filter((set) => set.location === i).length !== 0) {

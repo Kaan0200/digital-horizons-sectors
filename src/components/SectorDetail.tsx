@@ -1,12 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-interface SectorDetailProps {
 
-}
 
-export default function SectorDetail(props: SectorDetailProps): React.JSX.Element {
-    let nav = useNavigate();
+export default function SectorDetail(): React.JSX.Element {
+    const nav = useNavigate();
     return (
         <div
             className="flex content-center absolute"
