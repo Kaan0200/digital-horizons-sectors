@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Stack(): JSX.Element {
+export function Stack(): React.JSX.Element {
   return (
     <div>
       <div className="text-2xl">Dev Space</div>

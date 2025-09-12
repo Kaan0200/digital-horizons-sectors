@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function ViewBox(): React.JSX.Element {
     const { height, width } = useWindowDimensions();
-    const outerRef: RefObject<HTMLDivElement> = React.createRef();
+    const outerRef: RefObject<HTMLDivElement | null> = React.createRef();
 
     return (
       <div

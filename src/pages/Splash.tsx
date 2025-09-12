@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export function Splash(): JSX.Element {
+export function Splash(): React.JSX.Element {
   const [count, setCount] = useState(0);
 
   return (

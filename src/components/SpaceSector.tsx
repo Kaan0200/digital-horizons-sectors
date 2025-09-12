@@ -30,14 +30,15 @@ export class SpaceSector extends React.Component<SpaceSectorProps> {
             height: "120px",
             border: "1px cyan dashed"
           }}>
-          </div> :
+          </div> : (
           <div key={locationKey} style={{
             width: "120px",
             height: "120px",
             border: "1px black dashed"
           }}>
 
-        </div>
+          </div>
+        )
     );
   }
 }

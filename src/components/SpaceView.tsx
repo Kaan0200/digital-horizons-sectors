@@ -13,7 +13,6 @@ export default function SpaceView(props: SpaceViewProps): JSX.Element {
             "behavior": "smooth",
             left: _windowRef.current.clientWidth / 2,
             top: _windowRef.current.clientHeight / 2
-
         })
     })
 

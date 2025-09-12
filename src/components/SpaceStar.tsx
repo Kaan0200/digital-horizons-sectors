@@ -8,7 +8,7 @@ interface SpaceStarProps {
   size: number;
 }
 
-export function SpaceStar(props: SpaceStarProps): JSX.Element {
+export function SpaceStar(props: SpaceStarProps): React.JSX.Element {
   const { position } = props;
   return (
     <div

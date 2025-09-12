@@ -2,7 +2,7 @@ import './index.css';
 
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import App from './App';
 import SectorDetail from './components/SectorDetail';

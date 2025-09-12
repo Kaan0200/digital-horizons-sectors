@@ -34,19 +34,18 @@ export class SpaceshipDashboard extends React.Component<SpaceshipDashboardProps>
   render(): React.JSX.Element {
     return (
       <div className="">
-        {this.props.mixData?.file?.toString()}
-        {this.props.file && (
+        {this.props.file?.toString()}
+        {this.props.file !== null && (
           <audio
             controls
             ref={this.props.audioRef}
             onTimeUpdate={() => { }}
             //onLoadedMetadata={(e) => console.log(e.target?.duration)}
           >
-            <source src={this.props.file} type="audio/mpeg" />
+            <source src={this.props.file as string} type="audio/mpeg" />
             <track kind="captions" label="audio-player-dashboard" />
           </audio>
         )}
-        {this.props.file}
         <div>
           <div className="mr-4" style={{ width: '64px' }}>
             {this.status === PlayerStatus.Empty && (
