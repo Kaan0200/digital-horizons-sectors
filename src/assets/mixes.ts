@@ -1,9 +1,6 @@
-import data_one from './audio/PLNT001.json';
 import data_two from './audio/PLNT002.json';
-import mix_one from './audio/PLNT002_192k.mp3';
 import data_three from './audio/PLNT003.json';
-import mix_two from './audio/PLNT003_192k.mp3';
-import mix_three from './audio/PLNT004_192k.mp3';
+import data_four from './audio/PLNT004.json';
 
 export interface MixData {
   id: string;
@@ -11,7 +8,9 @@ export interface MixData {
 
   height: number;
   width: number;
-  filename: string;
+
+  /** Azure Resource URL for the MP3 Audio */
+  url: string;
 }
 
 export enum MixType {
@@ -27,15 +26,15 @@ export interface Mix {
 
 export const mixes: Mix[] = [
   {
-    data: data_one as MixData,
-    audio: mix_one,
-  },
-  {
     data: data_two as MixData,
-    audio: mix_two,
+    audio: '',
   },
   {
     data: data_three as MixData,
-    audio: mix_three,
+    audio: '',
+  },
+  {
+    data: data_four as MixData,
+    audio: '',
   },
 ];
