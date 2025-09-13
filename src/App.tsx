@@ -4,21 +4,64 @@ import { Mix, mixes } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React from 'react';
+import { observable } from 'mobx';
+import Starfield from './components/Starfield';
+import ControlsPanel from './components/ControlsPanel';
 
 const SQUARES: number = 1400;
 
 @observer
 export default class App extends React.Component {
+  @observable isScrolling: boolean;
+  @observable scrollX: number = 0;
+  @observable clientX: number = 0;
+  @observable scrollY: number = 0;
+  @observable clientY: number = 0;
+
   constructor(props: React.PropsWithChildren) {
     super(props);
 
+    this.isScrolling = false;
   }
 
 
+  componentDidMount() {
+    const doc = document.documentElement;
+    doc.scrollTo({
+      "behavior": "smooth",
+      left: doc.clientWidth / 2,
+      top: doc.clientHeight / 2
+
+    })
+
+    doc.onmousedown = e => {
+      this.isScrolling = true;
+      this.clientX = e.clientX;
+      this.clientY = e.clientY;
+    };
+
+
+    doc.onmouseup = () => {
+      this.isScrolling = false;
+    };
+
+    doc.onmousemove = (event: MouseEvent) => {
+      if (this.isScrolling) {
+        doc.scrollLeft = scrollX + event.clientX - this.clientX;
+        this.scrollX = scrollX + event.clientX - this.clientX;
+        this.clientX = event.clientX;
+
+        doc.scrollTop = scrollY + event.clientY - this.clientY;
+        this.scrollY = scrollY + event.clientY - this.clientY;
+        this.clientY = event.clientY;
+      }
+    };
+
+  }
 
   render() {
     // generate an index number for each set
-    const setPlacements: Array<{mix: Mix, location: number}> = [];
+    const setPlacements: Array<{ mix: Mix, location: number }> = [];
     mixes.forEach((mix) => {
       setPlacements.push({
         mix: mix,
@@ -37,21 +80,27 @@ export default class App extends React.Component {
       } else {
         gridSquares.push(
           <SpaceSector active={false} locationKey={i}></SpaceSector>
-        );  
+        );
       }
     }
 
 
     return (
       /** */
-      <div className="text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-sky-500">
+      <div className="text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-slate-900">
+        <Starfield />
         <SpaceView>
 
-          { gridSquares }
-          
+          {gridSquares}
+
         </SpaceView>
+        <div className="w-100vw h-8 fixed bg-orange-800 top-0 left-0">
+          <div className="text-center">Now Playing Now Playing Now Playing</div>
+        </div>
+        <ControlsPanel />
       </div >
-      
+
     );
   }
 }
+

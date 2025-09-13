@@ -17,7 +17,7 @@ export default function SpaceView(props: SpaceViewProps): JSX.Element {
     })
 
     return (
-        <div className="flex flex-wrap flex-row" ref={_windowRef}>
+        <div className="flex flex-wrap flex-row">
             {props.children}
         </div>
     )
