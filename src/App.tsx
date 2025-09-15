@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react';
 
 import { Mix, mixes } from './assets/mixes';
-import { SpaceSector } from './components/SpaceSector';
+import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React from 'react';
 import { observable } from 'mobx';
 import Starfield from './components/Starfield';
 import ControlsPanel from './components/ControlsPanel';
+import { Outlet } from 'react-router';
 
 const SQUARES: number = 1400;
 
@@ -87,17 +88,19 @@ export default class App extends React.Component {
 
     return (
       /** */
-      <div className="text-white opacity-90 bg-gradient-to-tr from-zinc-900 via-purple-700 to-slate-900">
+      <div className="text-white opacity-90 bg-gradient-to-tr from-zinc-800 via-violet-800 to-slate-900">
         <Starfield />
         <SpaceView>
 
           {gridSquares}
 
         </SpaceView>
-        <div className="w-100vw h-8 fixed bg-orange-800 top-0 left-0">
-          <div className="text-center">Now Playing Now Playing Now Playing</div>
+        <div className="w-100 h-16 fixed top-0 left-[25%] z-20">
+          <div className="text-center bg-orange-800 ">Now Playing Now Playing Now Playing</div>
         </div>
         <ControlsPanel />
+
+        <Outlet />
       </div >
 
     );
