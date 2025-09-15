@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --color-mint: #ADF1D2;
+  --color-plum: #553555;
+}
+
 a {
   @apply underline text-blue-600 text-blue-800 text-purple-600;
 }

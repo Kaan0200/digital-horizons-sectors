@@ -27,37 +27,39 @@ export default class App extends React.Component {
 
 
   componentDidMount() {
-    const doc = document.documentElement;
-    doc.scrollTo({
-      "behavior": "smooth",
-      left: doc.clientWidth / 2,
-      top: doc.clientHeight / 2
 
-    })
+    if (location.pathname === '/') {
+      const doc = document.documentElement;
+      doc.scrollTo({
+        "behavior": "smooth",
+        left: doc.clientWidth / 2,
+        top: doc.clientHeight / 2
 
-    doc.onmousedown = e => {
-      this.isScrolling = true;
-      this.clientX = e.clientX;
-      this.clientY = e.clientY;
-    };
+      })
+
+      doc.onmousedown = e => {
+        this.isScrolling = true;
+        this.clientX = e.clientX;
+        this.clientY = e.clientY;
+      };
 
 
-    doc.onmouseup = () => {
-      this.isScrolling = false;
-    };
+      doc.onmouseup = () => {
+        this.isScrolling = false;
+      };
 
-    doc.onmousemove = (event: MouseEvent) => {
-      if (this.isScrolling) {
-        doc.scrollLeft = scrollX + event.clientX - this.clientX;
-        this.scrollX = scrollX + event.clientX - this.clientX;
-        this.clientX = event.clientX;
+      doc.onmousemove = (event: MouseEvent) => {
+        if (this.isScrolling) {
+          doc.scrollLeft = scrollX + event.clientX - this.clientX;
+          this.scrollX = scrollX + event.clientX - this.clientX;
+          this.clientX = event.clientX;
 
-        doc.scrollTop = scrollY + event.clientY - this.clientY;
-        this.scrollY = scrollY + event.clientY - this.clientY;
-        this.clientY = event.clientY;
-      }
-    };
-
+          doc.scrollTop = scrollY + event.clientY - this.clientY;
+          this.scrollY = scrollY + event.clientY - this.clientY;
+          this.clientY = event.clientY;
+        }
+      };
+    }
   }
 
   render() {
@@ -88,15 +90,13 @@ export default class App extends React.Component {
 
     return (
       /** */
-      <div className="text-white opacity-90 bg-gradient-to-tr from-zinc-800 via-violet-800 to-slate-900">
+      <div className="text-white opacity-90 bg-gradient-to-tr from-indigo-950 via-stone-900 to-slate-800">
         <Starfield />
         <SpaceView>
-
           {gridSquares}
-
         </SpaceView>
-        <div className="w-100 h-16 fixed top-0 left-[25%] z-20">
-          <div className="text-center bg-orange-800 ">Now Playing Now Playing Now Playing</div>
+        <div className="fixed top-0 left-[25%] z-20 shadow-[3px_3px_0px_black]">
+          <div className="text-center bg-mint text-black p-4">Now Playing Now Playing Now Playing</div>
         </div>
         <ControlsPanel />
 
