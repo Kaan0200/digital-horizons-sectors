@@ -1,6 +1,6 @@
 # Digital Horizons Sectors Web App 🌌
 
-[![Azure Static Web Apps CI/CD](https://github.com/Kaan0200/digital-horizons-sectors/actions/workflows/az-static-deploy.yml/badge.svg)](https://github.com/Kaan0200/digital-horizons-sectors/actions/workflows/azure-static-web-apps-witty-grass-06acec310.yml)
+[![Azure Static Web Apps CI/CD](https://github.com/Kaan0200/digital-horizons-sectors/actions/workflows/azure-static-web-apps-witty-grass-06acec310.yml/badge.svg)](https://github.com/Kaan0200/digital-horizons-sectors/actions/workflows/azure-static-web-apps-witty-grass-06acec310.yml)
 
 _This is a multiplayer web app made both for my web-dev portfolio and to showcase my dj mixes._
 
