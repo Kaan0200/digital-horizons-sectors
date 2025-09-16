@@ -1,7 +1,8 @@
-import React, { JSX, useEffect } from "react";
+import React, { JSX, Ref, useEffect } from "react";
 
 interface SpaceViewProps {
     children: Array<JSX.Element>;
+    ref: Ref<HTMLDivElement>;
 }
 
 export default function SpaceView(props: SpaceViewProps): JSX.Element {
@@ -17,7 +18,7 @@ export default function SpaceView(props: SpaceViewProps): JSX.Element {
     })
 
     return (
-        <div className="flex flex-wrap flex-row">
+        <div className="flex flex-wrap flex-row" ref={props.ref}>
             {props.children}
         </div>
     )

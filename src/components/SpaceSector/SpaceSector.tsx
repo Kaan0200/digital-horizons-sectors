@@ -7,58 +7,70 @@ import { NavigateFunction, useNavigate } from 'react-router';
 //import { ReactComponent as Planet } from '../assets/icons/planet.svg';
 //import { ReactComponent as Satellite } from '../assets/icons/satellite.svg';
 
-interface SpaceSectorProps {
-  locationKey: number;
-  active: boolean;
-}
+type SpaceSectorActiveProps = SpaceSectorActivePropsInternal & SpaceSectorSharedProps;
+type SpaceSectorInactiveProps = SpaceSectorInactivePropsInternal & SpaceSectorSharedProps;
 
-interface SpaceSectorPropsInternal {
+interface SpaceSectorSharedProps {
   sectorKey: number;
-  active: boolean;
-  nav: NavigateFunction;
 }
 
-//interface ActiveSpaceSectorProps extends SpaceSectorProps {
-//  active: true;
-//}
-//
-//interface InActiveSpaceSectorProps extends SpaceSectorProps {
-//  active: false;
-//}
+interface SpaceSectorActivePropsInternal {
+  sectorID: string;
+  active: true;
+  onClick: (nav: NavigateFunction, sectorID: string) => void;
+}
+
+interface SpaceSectorInactivePropsInternal {
+  active: false;
+}
+
+export function SpaceSector(props: SpaceSectorInactiveProps): React.JSX.Element;
+export function SpaceSector(props: SpaceSectorActiveProps): React.JSX.Element;
+export function SpaceSector(
+  props: SpaceSectorActiveProps | SpaceSectorInactiveProps,
+): React.JSX.Element {
+  if (props.active) {
+    const nav: NavigateFunction = useNavigate();
+    return (
+      <div key={props.sectorKey}>
+        <SpaceSectorActiveInternal
+          nav={nav}
+          sectorID={props.sectorID}
+          sectorKey={props.sectorKey}
+          active={props.active}
+          onClick={props.onClick}
+        />
+      </div>
+    );
+  } else {
+    return <div key={props.sectorKey} className="sector inactive-sector" />;
+  }
+}
+
+type SpaceSectorActiveInternalProps = SpaceSectorActiveProps &
+  SpaceSectorSharedProps & {
+    nav: NavigateFunction;
+  };
 
 @observer
-export class SpaceSectorInternal extends React.Component<SpaceSectorPropsInternal> {
-
-  public GoToSector(target: number) {
-    console.log("open sector " + target);
-
-    this.props.nav('/' + target, {replace: true});
-  }
-
+class SpaceSectorActiveInternal extends React.Component<SpaceSectorActiveInternalProps> {
   render() {
-    const { active, sectorKey }: Partial<SpaceSectorPropsInternal> = this.props;
+    const {
+      active,
+      sectorKey,
+      onClick,
+      sectorID,
+      nav,
+    }: Partial<SpaceSectorActiveInternalProps> = this.props;
 
     return (
-      active ?
-       <div key={sectorKey} className="sector active-sector" onClick={() => this.GoToSector(sectorKey)}>
-        
-      </div> : 
-      <div key={sectorKey} className="sector inactive-sector">
-
+      <div
+        key={sectorKey}
+        className={'sector ' + (active ? 'active-sector' : 'inactive-sector')}
+        onClick={() => onClick(nav, sectorKey.toString())}
+      >
+        {sectorID}
       </div>
     );
   }
 }
-
-
-export function SpaceSector(props: SpaceSectorProps): React.JSX.Element {
-  const nav = useNavigate();
-
-
-  return <div key={props.locationKey}>
-    <SpaceSectorInternal sectorKey={props.locationKey} active={props.active} nav={nav}>
-
-    </SpaceSectorInternal>
-  </div>
-}
-
