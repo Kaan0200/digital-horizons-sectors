@@ -4,8 +4,8 @@ import React from "react";
 export default function ControlsPanel() {
 
     return (
-        <div>
-            <div className="fixed top-0 left-0 flex flex-col z-20">
+        <div className="fixed left-0 top-0 flex flex-col z-20">
+            <div>
                 <NeuButton>Play</NeuButton>
                 <NeuButton>Vol</NeuButton>
                 <NeuButton>Next</NeuButton>
