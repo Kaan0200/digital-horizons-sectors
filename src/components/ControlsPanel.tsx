@@ -4,11 +4,17 @@ import React from "react";
 export default function ControlsPanel() {
 
     return (
-        <div className="fixed top-0 left-0 flex flex-col z-20">
-            <NeuButton>Play</NeuButton>
-            <NeuButton>Vol</NeuButton>
-            <NeuButton>Next</NeuButton>
+        <div>
+            <div className="fixed top-0 left-0 flex flex-col z-20">
+                <NeuButton>Play</NeuButton>
+                <NeuButton>Vol</NeuButton>
+                <NeuButton>Next</NeuButton>
+            </div>
+            <div>
+                <NeuButton>Mixes</NeuButton>
+            </div>
         </div>
+
     )
 }
 
