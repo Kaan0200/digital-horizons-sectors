@@ -18,7 +18,7 @@ export default function SectorDetail(): React.JSX.Element {
 
       <div
         id="sector-page"
-        className="fixed top-[40%] left-[40%] translate-[-40%] z-40"
+        className="fixed flex justify-evenly align-center h-full w-full top-0 left-0 z-40"
         onMouseDown={(e) => {
           e.stopPropagation();
         }}
