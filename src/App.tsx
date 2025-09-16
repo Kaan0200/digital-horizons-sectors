@@ -99,8 +99,8 @@ export default class App extends React.Component {
         <SpaceView>
           {gridSquares}
         </SpaceView>
-        <div className="fixed top-0 left-[25%] z-20 shadow-[3px_3px_0px_black]">
-          <div className="text-center bg-mint text-black p-4 rounded-md">Now Playing Now Playing Now Playing</div>
+        <div className="fixed justify-evenly w-full top-0 flex flex-row z-20 py-2">
+          <div className="text-center bg-mint text-black p-4 rounded-md shadow-[3px_3px_0px_black]">Now Playing Now Playing Now Playing</div>
         </div>
         <ControlsPanel />
 

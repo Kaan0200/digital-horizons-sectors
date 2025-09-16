@@ -4,7 +4,7 @@ import React from "react";
 export default function ControlsPanel() {
 
     return (
-        <div className="fixed left-0 top-0 flex flex-col z-20">
+        <div className="fixed justify-evenly h-full left-0 top-0 flex flex-col z-20">
             <div>
                 <NeuButton>Play</NeuButton>
                 <NeuButton>Vol</NeuButton>
