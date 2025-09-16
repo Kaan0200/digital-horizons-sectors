@@ -13,11 +13,15 @@ const SQUARES: number = 1400;
 
 @observer
 export default class App extends React.Component {
+  // UI / Interface State
   @observable isScrolling: boolean;
   @observable scrollX: number = 0;
   @observable clientX: number = 0;
   @observable scrollY: number = 0;
   @observable clientY: number = 0;
+
+  // Music Player State
+  @observable selectedMix = null;
 
   constructor(props: React.PropsWithChildren) {
     super(props);
@@ -96,7 +100,7 @@ export default class App extends React.Component {
           {gridSquares}
         </SpaceView>
         <div className="fixed top-0 left-[25%] z-20 shadow-[3px_3px_0px_black]">
-          <div className="text-center bg-mint text-black p-4">Now Playing Now Playing Now Playing</div>
+          <div className="text-center bg-mint text-black p-4 rounded-md">Now Playing Now Playing Now Playing</div>
         </div>
         <ControlsPanel />
 

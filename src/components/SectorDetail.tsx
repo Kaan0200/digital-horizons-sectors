@@ -3,6 +3,11 @@ import { useNavigate } from "react-router";
 import { NeuButton } from "./ControlsPanel";
 
 export default function SectorDetail(): React.JSX.Element {
+
+    function selectMix() {
+
+    }
+
     const nav = useNavigate();
     return (
         <>
@@ -31,7 +36,7 @@ export default function SectorDetail(): React.JSX.Element {
                         </div>
                     </div>
                     <div>
-                        <NeuButton>BEGIN TRANSMISSION</NeuButton>
+                        <NeuButton onClick={() => selectMix()}>BEGIN TRANSMISSION</NeuButton>
                     </div>
             </div>
             </div>
