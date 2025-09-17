@@ -2,11 +2,9 @@ import { LucidePlay, LucideRocket, LucideVolume } from "lucide-react";
 import React from "react";
 import { NeuButton } from "./NueButton";
 
-export interface ControlsPanelProps {
-    isPlaying: boolean;
-}
 
-export default function ControlsPanel(props: ControlsPanelProps): React.JSX.Element {
+
+export default function ControlsPanel(): React.JSX.Element {
     return (
         <div className="fixed justify-evenly h-full left-0 top-0 flex flex-col z-20">
             <div>
