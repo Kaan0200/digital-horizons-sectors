@@ -1,54 +1,70 @@
-import { observer } from 'mobx-react';
-
 import { Mix, mixes } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
-import { observable } from 'mobx';
+import { action, makeObservable, observable, runInAction } from 'mobx';
 import Starfield from './components/Starfield';
 import { NavigateFunction, Outlet } from 'react-router';
 import { NeuButton } from './components/NueButton';
-import { LucidePlay, LucideVolume, LucideRocket, LucidePause } from 'lucide-react';
+import { LucidePlay, LucideVolume2, LucideRocket, LucidePause } from 'lucide-react';
 
 const SQUARES: number = 1400;
 
-@observer
 export default class App extends React.Component {
   // Application Stable State
-  mixesById: Map<string, { location: number; jsx: React.JSX.Element }> = new Map();
-  mixesByIndex: Map<number, { id: string; jsx: React.JSX.Element }> = new Map();
+  private mixesById: Map<string, { location: number; jsx: React.JSX.Element }> = new Map<
+    string,
+    { location: number; jsx: React.JSX.Element }
+  >();
+  private mixesByIndex: Map<number, { id: string; jsx: React.JSX.Element }> = new Map<
+    number,
+    { id: string; jsx: React.JSX.Element }
+  >();
 
   // UI / Interface State
   sectorsRef: Ref<HTMLDivElement>;
 
-  @observable isScrolling: boolean;
-  @observable scrollX: number = 0;
-  @observable clientX: number = 0;
-  @observable scrollY: number = 0;
-  @observable clientY: number = 0;
+  isScrolling: boolean;
+  scrollX: number = 0;
+  clientX: number = 0;
+  scrollY: number = 0;
+  clientY: number = 0;
 
-  // Music Player State
+  /** =======================
+   * Music Player State
+   * ========================*/
   /**
-   * The current mix. Nullable, similar to a physical player
-   * that loads and unloads media.
+   * The current mix. Nullable, similar to a physical music-player
+   * that loads and unloads media, with backing-property to deal with
+   * any additional logic when triggering loads/unloads.
    */
-  get selectedMix() { return this._selectedMix }
-  set selectedMix(value: Mix | null) { this._selectedMix = value }
+
+  LoadMix(value: Mix | null) {
+    this._selectedMix = value;
+  }
   private _selectedMix: Mix | null = null;
 
   /**
-   * 
+   *
    */
-  @observable isPlaying: boolean = false;
+  isPlaying: boolean;
 
+  /** =======================
+   * Functions
+   * ========================*/
   constructor(props: React.PropsWithChildren) {
     super(props);
+    makeObservable(this, {
+      isPlaying: observable,
+      LoadMix: action,
+      isScrolling: observable,
+    });
 
     // variable initialization
+    this.isPlaying = false;
     this.isScrolling = false;
     this.sectorsRef = React.createRef();
 
-    // build out the mix locations
     mixes.forEach((mix: Mix) => {
       const locationIndex: number = Math.trunc(1400 * Math.random());
       const element = (
@@ -72,6 +88,8 @@ export default class App extends React.Component {
   }
 
   public componentDidMount() {
+    // build out the mix locations
+
     if (location.pathname === '/') {
       const doc = document.documentElement;
       doc.scrollTo({
@@ -104,55 +122,76 @@ export default class App extends React.Component {
     }
   }
 
-  GoToSector(nav: NavigateFunction, sectorID: string) {
-    nav('/' + sectorID, { replace: true });
+  TogglePlay() {
+    runInAction(() => {
+      this.isPlaying = !this.isPlaying;
+    });
   }
 
+  GoToSector(nav: NavigateFunction, sectorIdx: string) {
+    console.log('going...');
+    console.log(this.mixesById);
+
+    nav('/' + sectorIdx, {
+      replace: true,
+      state: {
+        id: this.mixesById.get(sectorIdx),
+      },
+    });
+  }
+
+  /** ============Render==============
+   *
+   */
   render() {
     // create the grid squares, with the randomly inserted mixes
-    const gridSquares = [];
+    const gridSquares: React.JSX.Element[] = [];
     for (let i = 0; i < SQUARES; i++) {
       if (this.mixesByIndex.has(i)) {
         gridSquares.push(
           <SpaceSector
             active
             sectorKey={i}
+            key={i}
             sectorID={this.mixesByIndex.get(i)?.id ?? ''}
             onClick={this.GoToSector}
           />,
         );
       } else {
-        gridSquares.push(<SpaceSector active={false} sectorKey={i} />);
+        gridSquares.push(<SpaceSector active={false} sectorKey={i} key={i} />);
       }
     }
 
     return (
-      /** */
-      <div className="text-white opacity-90 bg-gradient-to-tr from-indigo-950 via-stone-900 to-slate-800">
-        <Starfield />
-        <SpaceView ref={this.sectorsRef}>{gridSquares}</SpaceView>
-        <div className="fixed justify-evenly w-full top-0 flex flex-row z-20 py-2">
-          <div className="text-center bg-mint text-black p-4 rounded-md shadow-[3px_3px_0px_black]">
-            Now Playing Now Playing Now Playing
+      <>
+        <div className="text-white opacity-90 bg-gradient-to-tr from-indigo-950 via-stone-900 to-slate-800">
+          <Starfield />
+          <SpaceView ref={this.sectorsRef}>{gridSquares}</SpaceView>
+          <div className="fixed justify-evenly w-full top-0 flex flex-row z-20 py-2">
+            <div className="text-center bg-mint text-black p-4 rounded-md shadow-[3px_3px_0px_black]">
+              Now Playing Now Playing Now Playing
+            </div>
           </div>
-        </div>
-        <div className="fixed justify-evenly h-full left-0 top-0 flex flex-col z-40">
-          <div>
-            <NeuButton rectangle>
-              <div onClick={() => this.isPlaying = !this.isPlaying}>
+          <div className="fixed justify-evenly h-full left-0 top-0 flex flex-col z-40">
+            <div>
+              <NeuButton rectangle onClick={() => this.TogglePlay()}>
                 {this.isPlaying ? <LucidePause /> : <LucidePlay />}
-              </div>
-            </NeuButton>
-            <NeuButton rectangle><LucideVolume /></NeuButton>
-            <NeuButton>Next</NeuButton>
+              </NeuButton>
+              <NeuButton rectangle onClick={() => {}}>
+                <LucideVolume2 />
+              </NeuButton>
+            </div>
+            <div>
+              <NeuButton rectangle onClick={() => {}}>
+                <span className="text-xl">More</span>
+                <LucideRocket />
+              </NeuButton>
+            </div>
           </div>
-          <div>
-            <NeuButton rectangle><LucideRocket /></NeuButton>
-          </div>
-        </div>
 
-        <Outlet />
-      </div>
+          <Outlet />
+        </div>
+      </>
     );
   }
 }

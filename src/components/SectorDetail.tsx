@@ -1,12 +1,17 @@
 import { LucideX } from 'lucide-react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { NeuButton } from './NueButton';
+import { PlayerContext } from '../state/PlayerContext';
 
 export default function SectorDetail(): React.JSX.Element {
-  function selectMix() { }
+  function selectMix() {
+    player.selectedMix = location.pathname;
+  }
 
+  const player = useContext(PlayerContext);
   const nav = useNavigate();
+  //const loc = useLocation();
   return (
     <>
       <div
@@ -32,7 +37,9 @@ export default function SectorDetail(): React.JSX.Element {
         >
           <div className="p-4 flex justify-between">
             <h2 className="text-2xl">SET TITLE</h2>
-            <div onClick={() => nav('/')}><LucideX /></div>
+            <div onClick={() => nav('/')}>
+              <LucideX />
+            </div>
           </div>
           <div className="px-4 flex">
             <div className="mr-4 w-48 h-48 border-4 rounded-md">image</div>

@@ -24,6 +24,11 @@ interface SpaceSectorInactivePropsInternal {
   active: false;
 }
 
+type SpaceSectorActiveInternalProps = SpaceSectorActiveProps &
+  SpaceSectorSharedProps & {
+    nav: NavigateFunction;
+  };
+
 export function SpaceSector(props: SpaceSectorInactiveProps): React.JSX.Element;
 export function SpaceSector(props: SpaceSectorActiveProps): React.JSX.Element;
 export function SpaceSector(
@@ -47,11 +52,6 @@ export function SpaceSector(
   }
 }
 
-type SpaceSectorActiveInternalProps = SpaceSectorActiveProps &
-  SpaceSectorSharedProps & {
-    nav: NavigateFunction;
-  };
-
 @observer
 class SpaceSectorActiveInternal extends React.Component<SpaceSectorActiveInternalProps> {
   render() {
@@ -67,7 +67,7 @@ class SpaceSectorActiveInternal extends React.Component<SpaceSectorActiveInterna
       <div
         key={sectorKey}
         className={'sector ' + (active ? 'active-sector' : 'inactive-sector')}
-        onClick={() => onClick(nav, sectorKey.toString())}
+        onClick={() => onClick(nav, sectorID)}
       >
         {sectorID}
       </div>

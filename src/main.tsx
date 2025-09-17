@@ -7,19 +7,19 @@ import { createBrowserRouter, RouterProvider } from 'react-router';
 import App from './App';
 import SectorDetail from './components/SectorDetail';
 
-
 const container = document.getElementById('root');
 const root: Root = createRoot(container!);
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     Component: App,
     children: [
       {
-        path: "/:id", Component: SectorDetail
-      }
-    ]
+        path: '/:id',
+        Component: SectorDetail,
+      },
+    ],
     //loader: loadRootData,
   },
 ]);
