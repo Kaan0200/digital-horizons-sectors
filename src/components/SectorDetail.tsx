@@ -1,9 +1,10 @@
+import { LucideX } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { NeuButton } from './NueButton';
 
 export default function SectorDetail(): React.JSX.Element {
-  function selectMix() {}
+  function selectMix() { }
 
   const nav = useNavigate();
   return (
@@ -27,18 +28,18 @@ export default function SectorDetail(): React.JSX.Element {
           onClick={(e) => {
             e.stopPropagation();
           }}
-          className="w-180 h-80 bg-stone-950 absolute rounded-md shadow-[3px_3px_0px_black]"
+          className="w-180 p-4 bg-stone-950 absolute rounded-md shadow-[3px_3px_0px_black]"
         >
-          <div className="flex justify-between">
-            <h2>SET TITLE</h2>
-            <div onClick={() => nav('/')}>X</div>
+          <div className="p-4 flex justify-between">
+            <h2 className="text-2xl">SET TITLE</h2>
+            <div onClick={() => nav('/')}><LucideX /></div>
           </div>
-          <div className="flex">
-            <div className="w-60 h-60 border-4 rounded-md">image</div>
-            <div className="w-120 h-60 border-4 rounded-md">description</div>
+          <div className="px-4 flex">
+            <div className="mr-4 w-48 h-48 border-4 rounded-md">image</div>
+            <div className="w-110 h-48 border-4 rounded-md">description</div>
           </div>
-          <div>
-            <NeuButton onClick={() => selectMix()}>BEGIN TRANSMISSION</NeuButton>
+          <div className="pt-4">
+            <NeuButton onClick={() => selectMix()}>PLAY TRANSMISSION</NeuButton>
           </div>
         </div>
       </div>

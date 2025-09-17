@@ -6,8 +6,9 @@ import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
 import { observable } from 'mobx';
 import Starfield from './components/Starfield';
-import ControlsPanel from './components/ControlsPanel';
 import { NavigateFunction, Outlet } from 'react-router';
+import { NeuButton } from './components/NueButton';
+import { LucidePlay, LucideVolume, LucideRocket, LucidePause } from 'lucide-react';
 
 const SQUARES: number = 1400;
 
@@ -27,7 +28,18 @@ export default class App extends React.Component {
   @observable clientY: number = 0;
 
   // Music Player State
-  @observable selectedMix = null;
+  /**
+   * The current mix. Nullable, similar to a physical player
+   * that loads and unloads media.
+   */
+  get selectedMix() { return this._selectedMix }
+  set selectedMix(value: Mix | null) { this._selectedMix = value }
+  private _selectedMix: Mix | null = null;
+
+  /**
+   * 
+   */
+  @observable isPlaying: boolean = false;
 
   constructor(props: React.PropsWithChildren) {
     super(props);
@@ -124,7 +136,20 @@ export default class App extends React.Component {
             Now Playing Now Playing Now Playing
           </div>
         </div>
-        <ControlsPanel />
+        <div className="fixed justify-evenly h-full left-0 top-0 flex flex-col z-40">
+          <div>
+            <NeuButton rectangle>
+              <div onClick={() => this.isPlaying = !this.isPlaying}>
+                {this.isPlaying ? <LucidePause /> : <LucidePlay />}
+              </div>
+            </NeuButton>
+            <NeuButton rectangle><LucideVolume /></NeuButton>
+            <NeuButton>Next</NeuButton>
+          </div>
+          <div>
+            <NeuButton rectangle><LucideRocket /></NeuButton>
+          </div>
+        </div>
 
         <Outlet />
       </div>
