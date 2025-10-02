@@ -1,13 +1,16 @@
-import data_two from './audio/PLNT002.json';
-import data_three from './audio/PLNT003.json';
-import data_four from './audio/PLNT004.json';
+import mixData from './mixes.json';
 
 export interface MixData {
   id: string;
   type: MixType;
+  name: string;
+  desc: string;
 
-  height: number;
-  width: number;
+  /**
+   * Genres and keywords used to describe the mix
+   */
+  tags: string[];
+
 
   /** Azure Resource URL for the MP3 Audio */
   url: string;
@@ -24,17 +27,4 @@ export interface Mix {
   audio: unknown; // mp3???
 }
 
-export const mixes: Mix[] = [
-  {
-    data: data_two as MixData,
-    audio: '',
-  },
-  {
-    data: data_three as MixData,
-    audio: '',
-  },
-  {
-    data: data_four as MixData,
-    audio: '',
-  },
-];
+export const MixData: Array<MixData> = mixData.mixes as Array<MixData>;

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 
-import { Mix, mixes } from './assets/mixes';
+import { Mix, MixData } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
@@ -14,12 +14,11 @@ const SQUARES: number = 1400;
 
 @observer
 export default class App extends React.Component {
-  // Application Stable State
-  mixesById: Map<string, { location: number; jsx: React.JSX.Element }> = new Map();
-  mixesByIndex: Map<number, { id: string; jsx: React.JSX.Element }> = new Map();
+
 
   // UI / Interface State
-  sectorsRef: Ref<HTMLDivElement>;
+  @observable trackSectors: number[] = [];
+  @observable sectorsRef: Ref<HTMLDivElement>;
 
   @observable isScrolling: boolean;
   @observable scrollX: number = 0;
@@ -49,29 +48,14 @@ export default class App extends React.Component {
     this.sectorsRef = React.createRef();
 
     // build out the mix locations
-    mixes.forEach((mix: Mix) => {
+    MixData.forEach(() => {
       const locationIndex: number = Math.trunc(1400 * Math.random());
-      const element = (
-        <SpaceSector
-          active
-          sectorKey={locationIndex}
-          sectorID={mix.data.id}
-          onClick={this.GoToSector}
-        />
-      );
-
-      this.mixesById.set(mix.data.id, {
-        location: locationIndex,
-        jsx: element,
-      });
-      this.mixesByIndex.set(locationIndex, {
-        id: mix.data.id,
-        jsx: element,
-      });
-    });
+      this.trackSectors.push(locationIndex);
+    })
   }
 
   public componentDidMount() {
+
     if (location.pathname === '/') {
       const doc = document.documentElement;
       doc.scrollTo({
@@ -111,19 +95,26 @@ export default class App extends React.Component {
   render() {
     // create the grid squares, with the randomly inserted mixes
     const gridSquares = [];
+
+    let dataIndex: number = 0
+
     for (let i = 0; i < SQUARES; i++) {
-      if (this.mixesByIndex.has(i)) {
+      
+      if (this.trackSectors.includes(i)) {
+        const data = MixData[i];
         gridSquares.push(
           <SpaceSector
             active
             sectorKey={i}
-            sectorID={this.mixesByIndex.get(i)?.id ?? ''}
+            sectorID={data?.id}
             onClick={this.GoToSector}
           />,
         );
       } else {
         gridSquares.push(<SpaceSector active={false} sectorKey={i} />);
       }
+
+      dataIndex = dataIndex + 1;
     }
 
     return (

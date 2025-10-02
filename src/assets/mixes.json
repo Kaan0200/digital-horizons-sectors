@@ -1,0 +1,44 @@
+{
+  "mixes": [
+    {
+      "id": "CRW001",
+      "type": "CRW",
+
+      "name": "Temp Tim",
+      "desc": "Track Dedicated to a mr. Temp Tim",
+      "tags": [],
+
+      "filename": "https://badurl.badurl"
+    },
+    {
+      "id": "PLNT002",
+      "type": "PLNT",
+
+      "name": "Techno Zone",
+      "desc": "A voyage through pounding beats.",
+      "tags": [],
+
+      "url": "https://dhaudio.blob.core.windows.net/dh-audio-store/PLNT002_192k.mp3"
+    },
+    {
+      "id": "PLNT003",
+      "type": "PLNT",
+
+      "name": "Mystery Space",
+      "desc": "A voyage through a dark and swirling space.",
+      "tags": [],
+
+      "url": "https://dhaudio.blob.core.windows.net/dh-audio-store/PLNT003_192k.mp3"
+    },
+    {
+      "id": "PLNT001",
+      "type": "PLNT",
+
+      "name": "Mystery Space",
+      "desc": "A voyage through a dark and swirling space.",
+      "tags": [],
+
+      "url": "https://dhaudio.blob.core.windows.net/dh-audio-store/PLNT004_192k.mp3"
+    }
+  ]
+}
