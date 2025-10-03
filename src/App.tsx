@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 
-import { Mix, MixData } from './assets/mixes';
+import { Mix, MixData, Mixes } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
@@ -48,7 +48,7 @@ export default class App extends React.Component {
     this.sectorsRef = React.createRef();
 
     // build out the mix locations
-    MixData.forEach(() => {
+    Mixes.forEach(() => {
       const locationIndex: number = Math.trunc(1400 * Math.random());
       this.trackSectors.push(locationIndex);
     })
@@ -101,12 +101,15 @@ export default class App extends React.Component {
     for (let i = 0; i < SQUARES; i++) {
       
       if (this.trackSectors.includes(i)) {
-        const data = MixData[i];
+        // change from index in the total list of DIVs to the List of mixes
+        const mixIdx = this.trackSectors.indexOf(i);
+        const {id } = Mixes[mixIdx];
+
         gridSquares.push(
           <SpaceSector
             active
             sectorKey={i}
-            sectorID={data?.id}
+            sectorID={id}
             onClick={this.GoToSector}
           />,
         );

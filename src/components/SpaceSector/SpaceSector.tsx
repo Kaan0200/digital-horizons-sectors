@@ -67,7 +67,7 @@ class SpaceSectorActiveInternal extends React.Component<SpaceSectorActiveInterna
       <div
         key={sectorKey}
         className={'sector ' + (active ? 'active-sector' : 'inactive-sector')}
-        onClick={() => onClick(nav, sectorKey.toString())}
+        onClick={() => onClick(nav, sectorID.toString())}
       >
         {sectorID}
       </div>
