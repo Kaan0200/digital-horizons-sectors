@@ -5,7 +5,7 @@ import React, { Ref } from 'react';
 import { action, makeObservable, observable } from 'mobx';
 import Starfield from './components/Starfield';
 import { NavigateFunction, Outlet } from 'react-router';
-import { LucideVolume, LucideRocket } from 'lucide-react';
+import { LucideVolume } from 'lucide-react';
 import { RootStoreContext } from './main';
 import NowPlayingBanner from './components/NowPlayingBanner';
 import {

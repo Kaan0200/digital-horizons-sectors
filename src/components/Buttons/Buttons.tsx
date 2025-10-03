@@ -6,7 +6,7 @@ import {
   LucideRocket,
 } from 'lucide-react';
 import { useStore } from '../../main';
-import React, { useState } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react';
 import { Mixes } from '../../assets/mixes';
 import { Menu } from '@base-ui-components/react';
