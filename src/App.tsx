@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 
-import { Mix, MixData, Mixes } from './assets/mixes';
+import { Mix, Mixes } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
