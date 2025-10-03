@@ -1,47 +1,52 @@
-import { observer } from 'mobx-react';
-
-import { Mix, Mixes } from './assets/mixes';
+import { Mixes } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
-import { observable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 import Starfield from './components/Starfield';
 import { NavigateFunction, Outlet } from 'react-router';
-import { NeuButton } from './components/NueButton';
-import { LucidePlay, LucideVolume, LucideRocket, LucidePause } from 'lucide-react';
+import { LucideVolume, LucideRocket } from 'lucide-react';
+import { RootStoreContext } from './main';
+import NowPlayingBanner from './components/NowPlayingBanner';
+import { NeuButton, PlayButton, ReturnButton, UnloadButton } from './components/Buttons';
 
 const SQUARES: number = 1400;
 
-@observer
 export default class App extends React.Component {
-
+  contextType = RootStoreContext;
 
   // UI / Interface State
-  @observable trackSectors: number[] = [];
-  @observable sectorsRef: Ref<HTMLDivElement>;
+  trackSectors: number[] = [];
+  sectorsRef: Ref<HTMLDivElement>;
 
-  @observable isScrolling: boolean;
-  @observable scrollX: number = 0;
-  @observable clientX: number = 0;
-  @observable scrollY: number = 0;
-  @observable clientY: number = 0;
-
-  // Music Player State
-  /**
-   * The current mix. Nullable, similar to a physical player
-   * that loads and unloads media.
-   */
-  get selectedMix() { return this._selectedMix }
-  set selectedMix(value: Mix | null) { this._selectedMix = value }
-  private _selectedMix: Mix | null = null;
+  isScrolling: boolean;
+  scrollX: number = 0;
+  clientX: number = 0;
+  scrollY: number = 0;
+  clientY: number = 0;
 
   /**
-   * 
+   * ID of the currently loaded Track
    */
-  @observable isPlaying: boolean = false;
+  selectedMix: string = '';
+
+  /**
+   * Bool for if the current track is playing or not
+   */
+  isPlaying: boolean = false;
 
   constructor(props: React.PropsWithChildren) {
     super(props);
+    makeObservable(this, {
+      trackSectors: observable,
+      isScrolling: observable,
+      scrollX: observable,
+      clientX: observable,
+      scrollY: observable,
+      clientY: observable,
+      componentDidMount: action,
+      GoToSector: action,
+    });
 
     // variable initialization
     this.isScrolling = false;
@@ -51,11 +56,14 @@ export default class App extends React.Component {
     Mixes.forEach(() => {
       const locationIndex: number = Math.trunc(1400 * Math.random());
       this.trackSectors.push(locationIndex);
-    })
+    });
   }
 
+  /**
+   * [React Built-In Class Func]
+   * Runs when the component is put on screen, close to final UI
+   */
   public componentDidMount() {
-
     if (location.pathname === '/') {
       const doc = document.documentElement;
       doc.scrollTo({
@@ -92,26 +100,25 @@ export default class App extends React.Component {
     nav('/' + sectorID, { replace: true });
   }
 
+  /**
+   * [React Built-In Class Func]
+   * Draws the component, called every time there is a rerender
+   */
   render() {
     // create the grid squares, with the randomly inserted mixes
     const gridSquares = [];
+    //const { isPlaying, selectedId } = this.context as RootStore;
 
-    let dataIndex: number = 0
+    let dataIndex: number = 0;
 
     for (let i = 0; i < SQUARES; i++) {
-      
       if (this.trackSectors.includes(i)) {
         // change from index in the total list of DIVs to the List of mixes
         const mixIdx = this.trackSectors.indexOf(i);
-        const {id } = Mixes[mixIdx];
+        const { id } = Mixes[mixIdx];
 
         gridSquares.push(
-          <SpaceSector
-            active
-            sectorKey={i}
-            sectorID={id}
-            onClick={this.GoToSector}
-          />,
+          <SpaceSector active sectorKey={i} sectorID={id} onClick={this.GoToSector} />,
         );
       } else {
         gridSquares.push(<SpaceSector active={false} sectorKey={i} />);
@@ -125,26 +132,20 @@ export default class App extends React.Component {
       <div className="text-white opacity-90 bg-gradient-to-tr from-indigo-950 via-stone-900 to-slate-800">
         <Starfield />
         <SpaceView ref={this.sectorsRef}>{gridSquares}</SpaceView>
-        <div className="fixed justify-evenly w-full top-0 flex flex-row z-20 py-2">
-          <div className="text-center bg-mint text-black p-4 rounded-md shadow-[3px_3px_0px_black]">
-            Now Playing Now Playing Now Playing
-          </div>
-        </div>
+        <NowPlayingBanner />
         <div className="fixed justify-evenly h-full left-0 top-0 flex flex-col z-40">
           <div>
+            <UnloadButton />
+            <PlayButton />
             <NeuButton rectangle>
-              <div onClick={() => this.isPlaying = !this.isPlaying}>
-                {this.isPlaying ? <LucidePause /> : <LucidePlay />}
-              </div>
+              <LucideVolume />
             </NeuButton>
-            <NeuButton rectangle><LucideVolume /></NeuButton>
-            <NeuButton>Next</NeuButton>
-          </div>
-          <div>
-            <NeuButton rectangle><LucideRocket /></NeuButton>
+            <ReturnButton />
+            <NeuButton rectangle>
+              <LucideRocket />
+            </NeuButton>
           </div>
         </div>
-
         <Outlet />
       </div>
     );

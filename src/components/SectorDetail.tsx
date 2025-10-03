@@ -1,12 +1,18 @@
 import { LucideX } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { NeuButton } from './NueButton';
+import { NeuButton } from './Buttons';
+import { useStore } from '../main';
 
-export default function SectorDetail(): React.JSX.Element {
-  function selectMix() { }
-
+export const SectorDetail = (): React.JSX.Element => {
+  const store = useStore();
   const nav = useNavigate();
+
+  const selectMix = () => {
+    store.isPlaying = true;
+    store.selectedId = location.pathname.slice(1);
+  };
+
   return (
     <>
       <div
@@ -32,7 +38,9 @@ export default function SectorDetail(): React.JSX.Element {
         >
           <div className="p-4 flex justify-between">
             <h2 className="text-2xl">SET TITLE</h2>
-            <div onClick={() => nav('/')}><LucideX /></div>
+            <div onClick={() => nav('/')}>
+              <LucideX />
+            </div>
           </div>
           <div className="px-4 flex">
             <div className="mr-4 w-48 h-48 border-4 rounded-md">image</div>
@@ -45,4 +53,5 @@ export default function SectorDetail(): React.JSX.Element {
       </div>
     </>
   );
-}
+};
+export default SectorDetail;
