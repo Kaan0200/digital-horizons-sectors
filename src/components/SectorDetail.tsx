@@ -1,7 +1,7 @@
 import { LucideX } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { NeuButton } from './Buttons';
+import { NeuButton } from './Buttons/Buttons';
 import { useStore } from '../main';
 
 export const SectorDetail = (): React.JSX.Element => {

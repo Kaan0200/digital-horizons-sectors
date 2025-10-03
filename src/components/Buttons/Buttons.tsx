@@ -5,9 +5,12 @@ import {
   LucidePlay,
   LucideRocket,
 } from 'lucide-react';
-import { useStore } from '../main';
-import React from 'react';
+import { useStore } from '../../main';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
+import { Mixes } from '../../assets/mixes';
+import { Menu } from '@base-ui-components/react';
+import styles from './Buttons.module.css';
 
 interface NueButtonProps {
   rectangle?: boolean;
@@ -87,11 +90,29 @@ export const ReturnButton = observer(() => {
 });
 
 export const SectorsListButton = observer(() => {
-  //const store = useStore();
+  const store = useStore();
+
+  const menuItems = Mixes.map((mix, idx) => {
+    const selectedDot = store.selectedId === mix.id ? <div>X</div> : null;
+
+    return (
+      <Menu.Item key={idx}>
+        {mix.id} - {mix.name} {selectedDot}
+      </Menu.Item>
+    );
+  });
 
   return (
-    <NeuButton rectangle>
-      <LucideRocket />
-    </NeuButton>
+    <Menu.Root>
+      <Menu.Trigger>
+        <LucideRocket />
+      </Menu.Trigger>
+      <Menu.Portal>
+        <Menu.Backdrop />
+        <Menu.Positioner>
+          <Menu.Popup className={styles.Popup}>{menuItems}</Menu.Popup>
+        </Menu.Positioner>
+      </Menu.Portal>
+    </Menu.Root>
   );
 });

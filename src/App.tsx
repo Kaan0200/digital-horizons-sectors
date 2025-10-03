@@ -8,7 +8,13 @@ import { NavigateFunction, Outlet } from 'react-router';
 import { LucideVolume, LucideRocket } from 'lucide-react';
 import { RootStoreContext } from './main';
 import NowPlayingBanner from './components/NowPlayingBanner';
-import { NeuButton, PlayButton, ReturnButton, UnloadButton } from './components/Buttons';
+import {
+  NeuButton,
+  PlayButton,
+  ReturnButton,
+  SectorsListButton,
+  UnloadButton,
+} from './components/Buttons/Buttons';
 
 const SQUARES: number = 1400;
 
@@ -118,10 +124,16 @@ export default class App extends React.Component {
         const { id } = Mixes[mixIdx];
 
         gridSquares.push(
-          <SpaceSector active sectorKey={i} sectorID={id} onClick={this.GoToSector} />,
+          <SpaceSector
+            key={i}
+            active
+            sectorKey={i}
+            sectorID={id}
+            onClick={this.GoToSector}
+          />,
         );
       } else {
-        gridSquares.push(<SpaceSector active={false} sectorKey={i} />);
+        gridSquares.push(<SpaceSector active={false} sectorKey={i} key={i} />);
       }
 
       dataIndex = dataIndex + 1;
@@ -141,9 +153,7 @@ export default class App extends React.Component {
               <LucideVolume />
             </NeuButton>
             <ReturnButton />
-            <NeuButton rectangle>
-              <LucideRocket />
-            </NeuButton>
+            <SectorsListButton />
           </div>
         </div>
         <Outlet />
