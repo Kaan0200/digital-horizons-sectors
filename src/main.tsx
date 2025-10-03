@@ -5,18 +5,45 @@ import { createRoot, Root } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import App from './App';
-import SectorDetail from './components/SectorDetail';
+import SectorDetail from './pages/SectorDetail';
 import { makeAutoObservable } from 'mobx';
+import { Mixes } from './assets/mixes';
 
 export class RootStore {
   isPlaying: boolean;
   selectedId: string;
+  currentAudio: HTMLAudioElement;
 
   constructor() {
     makeAutoObservable(this);
     this.isPlaying = false;
     this.selectedId = '';
+    this.currentAudio = new Audio();
   }
+
+  play = (newID?: string) => {
+    // play any new mixIDs
+    if (newID) {
+      const match = Mixes.find((mix) => mix.id === newID);
+      if (match) {
+        this.currentAudio = new Audio(match.url);
+        this.currentAudio.play();
+      }
+
+      this.selectedId = newID;
+      this.isPlaying = true;
+    }
+    //treat like a toggle
+    else {
+      if (this.isPlaying) {
+        this.currentAudio.pause();
+        this.isPlaying = false;
+      } else {
+        this.currentAudio.play();
+        this.isPlaying = true;
+      }
+    }
+  };
 }
 
 export const RootStoreContext = createContext<RootStore | null>(null);

@@ -5,12 +5,11 @@ import {
   LucidePlay,
   LucideRocket,
 } from 'lucide-react';
-import { useStore } from '../../main';
+import { useStore } from '../main';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Mixes } from '../../assets/mixes';
+import { Mixes } from '../assets/mixes';
 import { Menu } from '@base-ui-components/react';
-import styles from './Buttons.module.css';
 
 interface NueButtonProps {
   rectangle?: boolean;
@@ -61,7 +60,7 @@ export const PlayButton = observer(() => {
       <NeuButton
         rectangle
         onClick={() => {
-          store.isPlaying = !store.isPlaying;
+          store.play(store.selectedId);
         }}
       >
         <div>{store.isPlaying ? <LucidePause /> : <LucidePlay />}</div>
@@ -89,14 +88,19 @@ export const ReturnButton = observer(() => {
   }
 });
 
+/**
+ * Button that opens a menu letting the user go to sectors
+ *
+ * [Implements Base UI](https://base-ui.com/react/components/menu)
+ */
 export const SectorsListButton = observer(() => {
   const store = useStore();
 
   const menuItems = Mixes.map((mix, idx) => {
-    const selectedDot = store.selectedId === mix.id ? <div>X</div> : null;
+    const selectedDot = store.selectedId === mix.id ? <span>X</span> : null;
 
     return (
-      <Menu.Item key={idx}>
+      <Menu.Item key={idx} className="cursor-pointer">
         {mix.id} - {mix.name} {selectedDot}
       </Menu.Item>
     );
@@ -104,13 +108,18 @@ export const SectorsListButton = observer(() => {
 
   return (
     <Menu.Root>
-      <Menu.Trigger>
+      <Menu.Trigger
+        className={`w-fit font-medium bg-plum text-white  transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] 
+                hover:translate-y-[3px] p-4 m-4`}
+      >
         <LucideRocket />
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Backdrop />
-        <Menu.Positioner>
-          <Menu.Popup className={styles.Popup}>{menuItems}</Menu.Popup>
+        <Menu.Positioner side="right">
+          <Menu.Popup className="p-4 bg-plum font-medium text-white transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px]">
+            {menuItems}
+          </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>
     </Menu.Root>

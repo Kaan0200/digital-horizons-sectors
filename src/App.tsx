@@ -14,7 +14,7 @@ import {
   ReturnButton,
   SectorsListButton,
   UnloadButton,
-} from './components/Buttons/Buttons';
+} from './components/Buttons';
 
 const SQUARES: number = 1400;
 

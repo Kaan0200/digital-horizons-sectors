@@ -1,17 +1,13 @@
 import { LucideX } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { NeuButton } from './Buttons/Buttons';
+import { NeuButton } from '../components/Buttons';
 import { useStore } from '../main';
 
 export const SectorDetail = (): React.JSX.Element => {
   const store = useStore();
   const nav = useNavigate();
-
-  const selectMix = () => {
-    store.isPlaying = true;
-    store.selectedId = location.pathname.slice(1);
-  };
+  const currentID = location.pathname.slice(1);
 
   return (
     <>
@@ -47,7 +43,7 @@ export const SectorDetail = (): React.JSX.Element => {
             <div className="w-110 h-48 border-4 rounded-md">description</div>
           </div>
           <div className="pt-4">
-            <NeuButton onClick={() => selectMix()}>PLAY TRANSMISSION</NeuButton>
+            <NeuButton onClick={() => store.play(currentID)}>PLAY TRANSMISSION</NeuButton>
           </div>
         </div>
       </div>

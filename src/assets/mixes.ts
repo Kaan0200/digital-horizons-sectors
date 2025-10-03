@@ -1,29 +1,71 @@
+/**
+ * Interface representing a mix and it's metadata
+ *
+ * ! This information is intended static throughout the lifecycle of the application
+ */
 export interface MixData {
-  id: string;
-  type: MixType;
-  name: string;
-  desc: string;
+  /**
+   * ID indicating type and number, manually made
+   */
+  readonly id: string;
+  /**
+   * Enum representing what type of mix this is
+   */
+  readonly type: MixType;
+  /**
+   * Human-friendly name or title of the mix
+   */
+  readonly name: string;
+  /**
+   * Human-friendly description of the mix
+   */
+  readonly desc: string;
 
   /**
    * Genres and keywords used to describe the mix
+   * @todo - need to implement
    */
-  tags: string[];
+  readonly tags: string[];
 
   /** Azure Resource URL for the MP3 Audio */
-  url: string;
+  readonly url: string;
 }
 
+/**
+ * Enum representing the artistic purpose of this mix
+ */
 export enum MixType {
+  /**
+   * << P L A N E T  >>
+   *
+   * These are general mixes, each planet representing a
+   * specific theme or vibe, emotion or genre related usually.
+   */
   Planet = 'PLNT',
+  /**
+   * << C R E W >>
+   *
+   * These are mixes associated with specific people, maybe
+   * guest mixes, or maybe dedications
+   */
   Crew = 'CRW',
+  /**
+   * << S A T E L I T E >>
+   *
+   * These are special themed mixes for specific events
+   * or specific highlighted mixes or are more specific than
+   * for the general mixes.
+   */
   Satellite = 'STLT',
 }
 
-export interface Mix {
-  data: MixData;
-  audio: unknown; // mp3???
-}
-
+/**
+ * The static TS data that is all of the track meta data in the application,
+ * This is not editable and is fixed and available as static information
+ * though out the application.
+ *
+ * 👇👇 Modify here with new mixes 👇👇
+ */
 export const Mixes: Array<MixData> = [
   {
     id: 'CRW001',
