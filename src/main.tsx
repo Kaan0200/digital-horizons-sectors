@@ -25,13 +25,16 @@ export class RootStore {
     // play any new mixIDs
     if (newID) {
       const match = Mixes.find((mix) => mix.id === newID);
-      if (match) {
+      // check if new mix, otherwise pause
+      if (match && this.currentAudio.src !== match.url) {
         this.currentAudio = new Audio(match.url);
         this.currentAudio.play();
+        this.selectedId = newID;
+        this.isPlaying = true;
+      } else {
+        this.currentAudio.pause();
+        this.isPlaying = false;
       }
-
-      this.selectedId = newID;
-      this.isPlaying = true;
     }
     //treat like a toggle
     else {
