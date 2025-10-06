@@ -21,7 +21,7 @@ export const SectorDetail = (): React.JSX.Element => {
 
       <div
         id="sector-page"
-        className="fixed flex justify-evenly items-center h-full w-full top-0 left-0 z-40"
+        className="fixed flex justify-evenly items-center h-full w-full top-0 left-0 z-30"
         onMouseDown={(e) => {
           e.stopPropagation();
         }}
