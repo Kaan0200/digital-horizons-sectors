@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'NeueHumanist';
+  src:local("NeueHumanist"),
+  url('../resources/Y1NeueHumanist.otf');
+}
+
 @theme {
   --color-mint: #ADF1D2;
   --color-plum: #553555;

@@ -43,7 +43,9 @@ export const SectorDetail = observer((): React.JSX.Element => {
           className="w-180 p-4 bg-stone-950 absolute rounded-md shadow-[3px_3px_0px_black]"
         >
           <div className="p-4 flex justify-between">
-            <h2 className="text-2xl">{currentMix?.name}</h2>
+            <h2 className="text-4xl" style={{ fontFamily: 'NeueHumanist' }}>
+              {currentMix?.name}
+            </h2>
             <div onClick={() => nav('/')}>
               <LucideX />
             </div>
