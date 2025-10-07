@@ -15,6 +15,7 @@ import {
   UnloadButton,
 } from './components/Buttons';
 import { RootStoreContext } from './stores/RootStore';
+import SpaceshipCursor from './components/SpaceshipCusor';
 
 const SQUARES: number = 1400;
 
@@ -168,6 +169,7 @@ export default class App extends React.Component {
       /** */
       <div className="text-white opacity-90 bg-gradient-to-tr from-indigo-950 via-stone-900 to-slate-800">
         <Starfield />
+        <SpaceshipCursor />
         <SpaceView ref={this.sectorsRef}>{gridSquares}</SpaceView>
         <NowPlayingBanner />
         <div className="fixed justify-evenly h-full left-0 top-0 flex flex-col z-40">
