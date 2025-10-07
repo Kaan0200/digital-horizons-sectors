@@ -1,10 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
-
-interface FollowCursorProps {
-  color?: string;
-}
+import { observer } from 'mobx-react';
+import { useEffect } from 'react';
 
 class Dot {
   position: { x: number; y: number };
@@ -28,23 +25,33 @@ class Dot {
   }
 }
 
+interface Props {
+  speedFactor?: number;
+  shipColor?: string;
+}
+
 /**
  * A Cursor following component
  *
  * Taken from [Follow-Cursor](https://cursify.vercel.app/components/follow-cursor)
  * by Durgesh
+ *
+ * Things that i've changed:
+ * - Added logic making dot circle the cursor
  */
-const SpaceshipCursor: React.FC<FollowCursorProps> = ({ color = '#EAE3CA' }) => {
+const SpaceshipCursor = observer((props: Props): null => {
+  const { speedFactor = 0.02, shipColor = '#eae3ca' } = props;
   useEffect(() => {
     let canvas: HTMLCanvasElement;
     let context: CanvasRenderingContext2D | null;
     let animationFrame: number;
     let width = window.innerWidth;
     let height = window.innerHeight;
+
     const cursor = { x: width / 2, y: height / 2 };
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    const dot = new Dot(width / 2, height / 2, 10, 10);
+    const dot = new Dot(width / 2, height / 2, 10, 20);
 
     const onMouseMove = (e: MouseEvent) => {
       cursor.x = e.clientX;
@@ -60,15 +67,18 @@ const SpaceshipCursor: React.FC<FollowCursorProps> = ({ color = '#EAE3CA' }) => 
       }
     };
 
-    const updateDot = () => {
+    const drawDot = (time: number) => {
       if (context) {
+        const targetX = cursor.x + Math.sin(time * 0.1 * speedFactor) * 50;
+        const targetY = cursor.y + Math.cos(time * 0.1 * speedFactor) * 50;
+
         context.clearRect(0, 0, width, height);
-        dot.moveTowards(cursor.x, cursor.y, color, context);
+        dot.moveTowards(targetX, targetY, shipColor, context);
       }
     };
 
-    const loop = () => {
-      updateDot();
+    const loop = (time: number) => {
+      drawDot(time);
       animationFrame = requestAnimationFrame(loop);
     };
 
@@ -90,7 +100,7 @@ const SpaceshipCursor: React.FC<FollowCursorProps> = ({ color = '#EAE3CA' }) => 
 
       window.addEventListener('mousemove', onMouseMove);
       window.addEventListener('resize', onWindowResize);
-      loop();
+      requestAnimationFrame(loop);
     };
 
     const destroy = () => {
@@ -115,9 +125,9 @@ const SpaceshipCursor: React.FC<FollowCursorProps> = ({ color = '#EAE3CA' }) => 
     return () => {
       destroy();
     };
-  }, [color]);
+  }, [shipColor]);
 
   return null; // This component doesn't render any visible JSX
-};
+});
 
 export default SpaceshipCursor;

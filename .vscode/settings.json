@@ -2,5 +2,7 @@
     "prettier.enable": true,
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+
+    "editor.tabSize": 4
 }
