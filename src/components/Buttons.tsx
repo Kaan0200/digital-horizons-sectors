@@ -10,11 +10,13 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { Mixes } from '../assets/mixes';
 import { Menu } from '@base-ui-components/react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface NueButtonProps {
   rectangle?: boolean;
   children?: React.JSX.Element | string;
   onClick?: () => void;
+  toggled?: boolean;
 }
 
 export const NeuButton = (props: NueButtonProps): React.JSX.Element => {
@@ -37,15 +39,23 @@ export const UnloadButton = observer(() => {
   const store = useStore();
   if (store.selectedId !== '') {
     return (
-      <NeuButton
-        rectangle
-        onClick={() => {
-          store.selectedId = '';
-          store.isPlaying = false;
-        }}
-      >
-        <LucideArrowBigUpDash />
-      </NeuButton>
+      <AnimatePresence>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <NeuButton
+            rectangle
+            onClick={() => {
+              store.selectedId = '';
+              store.isPlaying = false;
+            }}
+          >
+            <LucideArrowBigUpDash />
+          </NeuButton>
+        </motion.div>
+      </AnimatePresence>
     );
   } else {
     return null;
@@ -57,33 +67,41 @@ export const PlayButton = observer(() => {
 
   if (store.selectedId !== '') {
     return (
-      <NeuButton
-        rectangle
-        onClick={() => {
-          store.play(store.selectedId);
-        }}
-      >
-        <div>{store.isPlaying ? <LucidePause /> : <LucidePlay />}</div>
-      </NeuButton>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <NeuButton
+          rectangle
+          onClick={() => {
+            store.play(store.selectedId);
+          }}
+        >
+          <div>{store.isPlaying ? <LucidePause /> : <LucidePlay />}</div>
+        </NeuButton>
+      </motion.div>
     );
   } else {
     return null;
   }
 });
 
+/**
+ * Button that moves the user-view back to having the sector
+ * as close to the middle of the screen as it can get.
+ */
 export const ReturnButton = observer(() => {
   const store = useStore();
 
   if (store.selectedId !== '') {
     return (
-      <NeuButton
-        rectangle
-        onClick={() => {
-          // move view back to sector on map
-        }}
-      >
-        <LucideAnchor />
-      </NeuButton>
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <NeuButton
+          rectangle
+          onClick={() => {
+            // move view back to sector on map
+          }}
+        >
+          <LucideAnchor />
+        </NeuButton>
+      </motion.div>
     );
   }
 });

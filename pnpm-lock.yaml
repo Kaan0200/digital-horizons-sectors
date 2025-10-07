@@ -27,7 +27,7 @@ importers:
         specifier: ^9.2.0
         version: 9.2.0(mobx@6.13.7)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       motion:
-        specifier: ^12.23.12
+        specifier: ^12.23.22
         version: 12.23.22(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: ^19.0.0

@@ -7,7 +7,7 @@ export interface MixData {
   /**
    * ID indicating type and number, manually made
    */
-  readonly id: string;
+  readonly id: MixIDs;
   /**
    * Enum representing what type of mix this is
    */
@@ -58,6 +58,12 @@ export enum MixType {
    */
   Satellite = 'STLT',
 }
+
+/**
+ * Typescript String-Type to keep the IDs for the mixes locked down for
+ * compiler reasons
+ */
+type MixIDs = 'CRW001' | 'PLNT002' | 'PLNT003' | 'PLNT001';
 
 /**
  * The static TS data that is all of the track meta data in the application,
