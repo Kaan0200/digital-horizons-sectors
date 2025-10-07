@@ -8,7 +8,11 @@
 
 @theme {
   --color-mint: #ADF1D2;
-  --color-plum: #553555;
+  --color-plum-700: #331F33;
+  --color-plum-600: #3F273F;
+  --color-plum-500: #553555;
+  --color-plum-400: #643F64;
+  --color-plum-300: #7D4F7D; 
 }
 
 a {

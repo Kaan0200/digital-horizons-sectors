@@ -2,7 +2,7 @@ import { LucideX } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router';
 import { NeuButton } from '../components/Buttons';
-import { useStore } from '../main';
+import { useStore } from '../stores/RootStore';
 import { Mixes } from '../assets/mixes';
 import { observer } from 'mobx-react';
 

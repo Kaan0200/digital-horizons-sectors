@@ -18,6 +18,7 @@ interface SpaceSectorActivePropsInternal {
   sectorID: string;
   active: true;
   onClick: (nav: NavigateFunction, sectorID: string) => void;
+  ref: never;
 }
 
 interface SpaceSectorInactivePropsInternal {
@@ -34,6 +35,7 @@ export function SpaceSector(
     return (
       <div key={props.sectorKey}>
         <SpaceSectorActiveInternal
+          ref={props.ref}
           nav={nav}
           sectorID={props.sectorID}
           sectorKey={props.sectorKey}
@@ -61,10 +63,12 @@ class SpaceSectorActiveInternal extends React.Component<SpaceSectorActiveInterna
       onClick,
       sectorID,
       nav,
+      ref,
     }: Partial<SpaceSectorActiveInternalProps> = this.props;
 
     return (
       <div
+        ref={ref}
         key={sectorKey}
         className={'sector ' + (active ? 'active-sector' : 'inactive-sector')}
         onClick={() => onClick(nav, sectorID.toString())}

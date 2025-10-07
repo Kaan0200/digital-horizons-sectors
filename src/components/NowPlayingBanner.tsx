@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import React from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { useStore } from '../main';
+import { useStore } from '../stores/RootStore';
 
 /**
  * Banner component that flies down from the top and displays the currently

@@ -5,12 +5,13 @@ import {
   LucidePlay,
   LucideRocket,
 } from 'lucide-react';
-import { useStore } from '../main';
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Mixes } from '../assets/mixes';
+import { Mixes, MixID } from '../assets/mixes';
 import { Menu } from '@base-ui-components/react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useStore } from '../stores/RootStore';
+import { NavigateFunction, useNavigate } from 'react-router';
 
 interface NueButtonProps {
   rectangle?: boolean;
@@ -25,7 +26,7 @@ export const NeuButton = (props: NueButtonProps): React.JSX.Element => {
       <button
         onClick={props.onClick}
         className={
-          `font-medium bg-plum text-white w-fit transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] 
+          `font-medium bg-plum-500 text-white w-fit transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] 
                 hover:translate-y-[3px]` + (props.rectangle ? ' p-4' : ' px-6 py-2')
         }
       >
@@ -45,13 +46,7 @@ export const UnloadButton = observer(() => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          <NeuButton
-            rectangle
-            onClick={() => {
-              store.selectedId = '';
-              store.isPlaying = false;
-            }}
-          >
+          <NeuButton rectangle onClick={() => store.stop()}>
             <LucideArrowBigUpDash />
           </NeuButton>
         </motion.div>
@@ -87,59 +82,71 @@ export const PlayButton = observer(() => {
  * Button that moves the user-view back to having the sector
  * as close to the middle of the screen as it can get.
  */
-export const ReturnButton = observer(() => {
-  const store = useStore();
+export const ReturnButton = observer(
+  (props: { onClick: (nav: NavigateFunction, id: MixID) => void }) => {
+    const nav = useNavigate();
+    const store = useStore();
 
-  if (store.selectedId !== '') {
-    return (
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-        <NeuButton
-          rectangle
-          onClick={() => {
-            // move view back to sector on map
-          }}
+    if (store.selectedId !== '') {
+      return (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          <LucideAnchor />
-        </NeuButton>
-      </motion.div>
-    );
-  }
-});
+          <NeuButton
+            rectangle
+            onClick={() => props.onClick(nav, store.selectedId as MixID)}
+          >
+            <LucideAnchor />
+          </NeuButton>
+        </motion.div>
+      );
+    }
+  },
+);
 
 /**
  * Button that opens a menu letting the user go to sectors
  *
  * [Implements Base UI](https://base-ui.com/react/components/menu)
  */
-export const SectorsListButton = observer(() => {
-  const store = useStore();
+export const SectorsListButton = observer(
+  (props: { onClick: (nav: NavigateFunction, id: MixID) => void }) => {
+    const nav = useNavigate();
+    const store = useStore();
 
-  const menuItems = Mixes.map((mix, idx) => {
-    const selectedDot = store.selectedId === mix.id ? <span>X</span> : null;
+    const menuItems = Mixes.map((mix, idx) => {
+      const selectedDot = store.selectedId === mix.id ? <span>X</span> : null;
+
+      return (
+        <Menu.Item
+          key={idx}
+          className="px-4 cursor-pointer hover:bg-plum-600"
+          onClick={() => props.onClick(nav, mix.id)}
+        >
+          {mix.id} - {mix.name} {selectedDot}
+        </Menu.Item>
+      );
+    });
 
     return (
-      <Menu.Item key={idx} className="cursor-pointer">
-        {mix.id} - {mix.name} {selectedDot}
-      </Menu.Item>
-    );
-  });
-
-  return (
-    <Menu.Root>
-      <Menu.Trigger
-        className={`w-fit font-medium bg-plum text-white  transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] 
+      <Menu.Root>
+        <Menu.Trigger
+          className={`w-fit font-medium bg-plum-500 text-white  transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px] 
                 hover:translate-y-[3px] p-4 m-4`}
-      >
-        <LucideRocket />
-      </Menu.Trigger>
-      <Menu.Portal>
-        <Menu.Backdrop />
-        <Menu.Positioner side="right">
-          <Menu.Popup className="p-4 bg-plum font-medium text-white transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px]">
-            {menuItems}
-          </Menu.Popup>
-        </Menu.Positioner>
-      </Menu.Portal>
-    </Menu.Root>
-  );
-});
+        >
+          <LucideRocket />
+        </Menu.Trigger>
+        <Menu.Portal>
+          <Menu.Backdrop />
+          <Menu.Positioner side="right">
+            <Menu.Popup className="py-4 bg-plum-500 font-medium text-white transition-all rounded-md shadow-[3px_3px_0px_black] hover:shadow-none hover:translate-x-[3px]">
+              {menuItems}
+            </Menu.Popup>
+          </Menu.Positioner>
+        </Menu.Portal>
+      </Menu.Root>
+    );
+  },
+);

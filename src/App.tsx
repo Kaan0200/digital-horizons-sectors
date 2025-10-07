@@ -1,4 +1,4 @@
-import { Mixes } from './assets/mixes';
+import { Mixes, MixID } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
@@ -6,7 +6,6 @@ import { action, makeObservable, observable } from 'mobx';
 import Starfield from './components/Starfield';
 import { NavigateFunction, Outlet } from 'react-router';
 import { LucideVolume } from 'lucide-react';
-import { RootStoreContext } from './main';
 import NowPlayingBanner from './components/NowPlayingBanner';
 import {
   NeuButton,
@@ -15,15 +14,24 @@ import {
   SectorsListButton,
   UnloadButton,
 } from './components/Buttons';
+import { RootStoreContext } from './stores/RootStore';
 
 const SQUARES: number = 1400;
 
 export default class App extends React.Component {
-  contextType = RootStoreContext;
+  static contextType = RootStoreContext;
 
   // UI / Interface State
+  /**
+   * Maps the Ordered IDX to it's HTML Array IDX
+   */
   trackSectors: number[] = [];
+  /** Ref for the sector element */
   sectorsRef: Ref<HTMLDivElement>;
+  /**
+   * Refs for the Ordered IDX of sectors
+   */
+  trackSectorsRefs: Array<React.RefObject<HTMLDivElement | null>> = [];
 
   isScrolling: boolean;
   scrollX: number = 0;
@@ -45,6 +53,7 @@ export default class App extends React.Component {
     super(props);
     makeObservable(this, {
       trackSectors: observable,
+      trackSectorsRefs: observable,
       isScrolling: observable,
       scrollX: observable,
       clientX: observable,
@@ -61,6 +70,7 @@ export default class App extends React.Component {
     // build out the mix locations
     Mixes.forEach(() => {
       const locationIndex: number = Math.trunc(1400 * Math.random());
+      this.trackSectorsRefs.push(React.createRef());
       this.trackSectors.push(locationIndex);
     });
   }
@@ -102,6 +112,19 @@ export default class App extends React.Component {
     }
   }
 
+  public MoveViewToSector(nav: NavigateFunction, targetId: MixID) {
+    console.log(targetId);
+    nav('/' + targetId, { replace: true });
+    const mixIdx = Mixes.findIndex((mix) => mix.id === targetId);
+    const refLink = this.trackSectorsRefs[mixIdx];
+
+    if (refLink.current) {
+      refLink.current.focus();
+    } else {
+      console.warn('ref not populated...');
+    }
+  }
+
   GoToSector(nav: NavigateFunction, sectorID: string) {
     nav('/' + sectorID, { replace: true });
   }
@@ -122,6 +145,7 @@ export default class App extends React.Component {
         // change from index in the total list of DIVs to the List of mixes
         const mixIdx = this.trackSectors.indexOf(i);
         const { id } = Mixes[mixIdx];
+        const refLink = this.trackSectorsRefs[mixIdx];
 
         gridSquares.push(
           <SpaceSector
@@ -130,6 +154,7 @@ export default class App extends React.Component {
             sectorKey={i}
             sectorID={id}
             onClick={this.GoToSector}
+            ref={refLink}
           />,
         );
       } else {
@@ -152,8 +177,8 @@ export default class App extends React.Component {
             <NeuButton rectangle>
               <LucideVolume />
             </NeuButton>
-            <ReturnButton />
-            <SectorsListButton />
+            <ReturnButton onClick={this.MoveViewToSector} />
+            <SectorsListButton onClick={this.MoveViewToSector} />
           </div>
         </div>
         <Outlet />

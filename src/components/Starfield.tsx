@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useStore } from '../main';
 import { observer } from 'mobx-react';
+import { useStore } from '../stores/RootStore';
 
 interface Props {
   speedFactor?: number;
