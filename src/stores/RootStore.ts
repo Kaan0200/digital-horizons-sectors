@@ -2,8 +2,11 @@ import { createContext, useContext } from 'react';
 
 import { makeAutoObservable } from 'mobx';
 import { Mixes } from '../assets/mixes';
+import { UserStore } from './UserStore';
 
 export class RootStore {
+  userStore: UserStore = new UserStore(this);
+
   isPlaying: boolean;
   selectedId: string;
   currentAudio: HTMLAudioElement | undefined;
