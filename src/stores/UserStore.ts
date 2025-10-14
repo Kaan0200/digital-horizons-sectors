@@ -5,6 +5,7 @@ import { User } from '../types';
 export class UserStore {
   root: RootStore;
   users: Map<string, User>;
+  roomId: string | undefined;
   //users: [key: string]: User;
 
   constructor(root: RootStore) {
