@@ -11,70 +11,42 @@ type SpaceSectorActiveProps = SpaceSectorActivePropsInternal & SpaceSectorShared
 type SpaceSectorInactiveProps = SpaceSectorInactivePropsInternal & SpaceSectorSharedProps;
 
 interface SpaceSectorSharedProps {
-  sectorKey: number;
+    sectorKey: number;
 }
 
 interface SpaceSectorActivePropsInternal {
-  sectorID: string;
-  active: true;
-  onClick: (nav: NavigateFunction, sectorID: string) => void;
-  ref: never;
+    sectorID: string;
+    active: true;
+    onClick: (nav: NavigateFunction, sectorID: string) => void;
+    ref: React.RefObject<HTMLDivElement | null>;
 }
 
 interface SpaceSectorInactivePropsInternal {
-  active: false;
+    active: false;
 }
 
-export function SpaceSector(props: SpaceSectorInactiveProps): React.JSX.Element;
-export function SpaceSector(props: SpaceSectorActiveProps): React.JSX.Element;
-export function SpaceSector(
-  props: SpaceSectorActiveProps | SpaceSectorInactiveProps,
-): React.JSX.Element {
-  if (props.active) {
-    const nav: NavigateFunction = useNavigate();
-    return (
-      <div key={props.sectorKey}>
-        <SpaceSectorActiveInternal
-          ref={props.ref}
-          nav={nav}
-          sectorID={props.sectorID}
-          sectorKey={props.sectorKey}
-          active={props.active}
-          onClick={props.onClick}
-        />
-      </div>
-    );
-  } else {
-    return <div key={props.sectorKey} className="sector inactive-sector" />;
-  }
-}
+export const SpaceSector = observer(
+    (props: SpaceSectorActiveProps | SpaceSectorInactiveProps) => {
+        if (props.active) {
+            const nav: NavigateFunction = useNavigate();
+            const { sectorKey, onClick, sectorID, ref }: Partial<SpaceSectorActiveProps> =
+                props;
+            return (
+                <div key={props.sectorKey}>
+                    <div
+                        ref={ref}
+                        key={sectorKey}
+                        className={'sector active-sector'}
+                        onClick={() => onClick(nav, sectorID.toString())}
+                    >
+                        {sectorID}
+                    </div>
+                </div>
+            );
+        } else {
+            return <div key={props.sectorKey} className="sector inactive-sector" />;
+        }
+    },
+);
 
-type SpaceSectorActiveInternalProps = SpaceSectorActiveProps &
-  SpaceSectorSharedProps & {
-    nav: NavigateFunction;
-  };
-
-@observer
-class SpaceSectorActiveInternal extends React.Component<SpaceSectorActiveInternalProps> {
-  render() {
-    const {
-      active,
-      sectorKey,
-      onClick,
-      sectorID,
-      nav,
-      ref,
-    }: Partial<SpaceSectorActiveInternalProps> = this.props;
-
-    return (
-      <div
-        ref={ref}
-        key={sectorKey}
-        className={'sector ' + (active ? 'active-sector' : 'inactive-sector')}
-        onClick={() => onClick(nav, sectorID.toString())}
-      >
-        {sectorID}
-      </div>
-    );
-  }
-}
+export default SpaceSector;
