@@ -8,7 +8,7 @@
 }
 
 .active-sector {
-    border: 1px cyan dashed
+    border: 1px var(--color-mint) dashed
 }
 
 .active-sector:hover {
