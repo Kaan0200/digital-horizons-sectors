@@ -5,13 +5,14 @@
 _This is a multiplayer web app made both for my web-dev portfolio and to showcase my dj mixes._
 
 
-This web app is an interactive way to listen to  musical mixes online and see what others are listening to. 
+This web app is an interactive way to listen to musical mixes online and see what others are listening to. 🚀
 
 ~~[ Screen shot soon ...]~~
 
-## Built With
-- **React** UI toolkit for making the components and pages.
-- **Typescript** Strong typing bringing clarity from the chaos of javascript.
-- **Tailwind** Easier, atomized css that dealing with classes or sheets.
+## Tech Stack
+- 🧱 **UI** >>> React component toolkit, with Base-UI for component accessability, TailwindCSS for style atomization, Framer-Motion for liquid smooth animations.
+- 🧩 **State** >>> State management using Mobx, React Context, React Router
+- 💙 **Language** >>> Typescript for strong typing, using ESLint for linting, prettier for code style.
 
-**Tooling**: Vite builder, ESLint, Git Hooks (husky)
+- 🔩 **Tooling Chain** >>> Vite (w/ rollup), ESLint, Git Hooks via Husky
+- 🌎 **Hosting** >>> Azure Static-Web App, Azure Storage, Cloudflare, Github Actions
