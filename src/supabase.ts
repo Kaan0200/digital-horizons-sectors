@@ -14,8 +14,8 @@ try {
 
 // PROD
 try {
-    supabaseUrl = process.env.VITE_APP_SUPABASE_URL;
-    supabaseKey = process.env.VITE_APP_SUPABASE_ANON_KEY;
+    supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
+    supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
 } catch (e: unknown) {
     console.error('Unable to retrieve env variables, via process.env');
 }
