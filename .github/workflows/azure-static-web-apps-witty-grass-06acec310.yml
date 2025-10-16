@@ -48,11 +48,8 @@ jobs:
               env:
                   VITE_APP_SUPABASE_URL: ${{ secrets.VITE_APP_SUPABASE_URL }}
                   VITE_APP_SUPABASE_ANON_KEY: ${{ secrets.VITE_APP_SUPABASE_ANON_KEY }}
-            - name: Cypress Test Deploy
+            - name: Cypress test run
               uses: cypress-io/github-action@v6
-              with:
-                  build: npm run build
-                  start: npm start
 
     close_pull_request_job:
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
