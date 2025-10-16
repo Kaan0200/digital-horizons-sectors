@@ -6,8 +6,8 @@ let supabaseKey;
 
 // DEV
 try {
-    supabaseUrl = import.meta.env.VITE_APP_SUPABASE_URL;
-    supabaseKey = import.meta.env.VITE_APP_SUPABASE_ANON;
+    supabaseUrl = import.meta.env.REACT_APP_SUPABASE_URL;
+    supabaseKey = import.meta.env.REACT_APP_SUPABASE_ANON_KEY;
 } catch (e: unknown) {
     console.error('Unable to retrieve env variables, via meta.env');
 }
