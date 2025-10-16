@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 let supabaseUrl;
 let supabaseKey;
-let supabase;
 
 // DEV
 try {
@@ -22,10 +21,6 @@ try {
 }
 
 // create client library
-try {
-    supabase = createClient(supabaseUrl || '', supabaseKey || '');
-} catch (e: unknown) {
-    console.error('Unable to create supabase client lib');
-}
+const supabase = createClient(supabaseUrl || '', supabaseKey || '');
 
 export default supabase;
