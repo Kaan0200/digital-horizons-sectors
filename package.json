@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^2.75.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@tailwindcss/vite": "^4.0.0",
+    "cypress": "^15.4.0",
     "lodash": "^4.17.21",
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^0.544.0",
