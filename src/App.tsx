@@ -1,10 +1,10 @@
 import { Mixes, MixID } from './assets/mixes';
 import { SpaceSector } from './components/SpaceSector/SpaceSector';
 import SpaceView from './components/SpaceView';
-import React, { Ref } from 'react';
+import React, { Ref, useEffect } from 'react';
 import { action, makeObservable, observable } from 'mobx';
 import Starfield from './components/Starfield';
-import { Navigate, NavigateFunction, Outlet } from 'react-router';
+import { NavigateFunction, Outlet, useNavigate } from 'react-router';
 import { LucideVolume } from 'lucide-react';
 import NowPlayingBanner from './components/NowPlayingBanner';
 import {
@@ -20,7 +20,21 @@ import MultiplayerSpaceships from './components/MultiplayerSpaceships';
 
 const SQUARES: number = 1400;
 
-export default class App extends React.Component {
+export default function App(): React.JSX.Element {
+    const useNav = useNavigate();
+
+    // Welcome screen re-routing based on cookie
+    useEffect(() => {
+        const currCookie = document.cookie;
+        if (currCookie !== 'visited=true') {
+            useNav('/welcome');
+        }
+    }, []);
+
+    return <AppInternal />;
+}
+
+class AppInternal extends React.Component {
     static contextType = RootStoreContext;
 
     // UI / Interface State
@@ -82,12 +96,6 @@ export default class App extends React.Component {
      * Runs when the component is put on screen, close to final UI
      */
     public componentDidMount() {
-        const currCookie = document.cookie;
-        if (currCookie !== 'visited=true') {
-            Navigate({ to: '/welcome' });
-        }
-
-
         if (location.pathname === '/') {
             const doc = document.documentElement;
             doc.scrollTo({
