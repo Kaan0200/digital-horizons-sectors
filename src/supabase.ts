@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
+let supabase = undefined;
 let supabaseUrl;
 let supabaseKey;
 
@@ -25,6 +26,11 @@ try {
 }
 
 // create client library
-const supabase = createClient(supabaseUrl || '', supabaseKey || '');
+try {
+    supabase = createClient(supabaseUrl || '', supabaseKey || '');
+} catch (e: unknown) {
+    console.error('[DH App] Unable to connect multiplayer. Unable to create supabase client.');
+}
+
 
 export default supabase;

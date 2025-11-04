@@ -5,6 +5,7 @@ import { NeuButton } from '../components/Buttons';
 import { useStore } from '../stores/RootStore';
 import { Mixes } from '../assets/mixes';
 import { observer } from 'mobx-react';
+import Cover from '../components/Cover';
 
 /**
  * React Router Page representing the user viewing the details
@@ -21,13 +22,7 @@ export const SectorDetail = observer((): React.JSX.Element => {
 
     return (
         <>
-            <div
-                id="cover"
-                className="fixed w-full h-full top-0 left-0 opacity-50 bg-stone-900 z-10"
-                onMouseDown={(e) => {
-                    e.stopPropagation();
-                }}
-            />
+            <Cover />
 
             <div
                 id="sector-page"

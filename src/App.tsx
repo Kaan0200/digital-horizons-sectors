@@ -4,7 +4,7 @@ import SpaceView from './components/SpaceView';
 import React, { Ref } from 'react';
 import { action, makeObservable, observable } from 'mobx';
 import Starfield from './components/Starfield';
-import { NavigateFunction, Outlet } from 'react-router';
+import { Navigate, NavigateFunction, Outlet } from 'react-router';
 import { LucideVolume } from 'lucide-react';
 import NowPlayingBanner from './components/NowPlayingBanner';
 import {
@@ -82,6 +82,12 @@ export default class App extends React.Component {
      * Runs when the component is put on screen, close to final UI
      */
     public componentDidMount() {
+        const currCookie = document.cookie;
+        if (currCookie !== 'visited=true') {
+            Navigate({ to: '/welcome' });
+        }
+
+
         if (location.pathname === '/') {
             const doc = document.documentElement;
             doc.scrollTo({
