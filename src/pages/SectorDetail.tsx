@@ -6,6 +6,7 @@ import { useStore } from '../stores/RootStore';
 import { Mixes } from '../assets/mixes';
 import { observer } from 'mobx-react';
 import Cover from '../components/Cover';
+import { TagDisplay } from '../components/TagDisplay';
 
 /**
  * React Router Page representing the user viewing the details
@@ -19,6 +20,30 @@ export const SectorDetail = observer((): React.JSX.Element => {
     const nav = useNavigate();
     const currentID = location.pathname.slice(1);
     const currentMix = Mixes.find((mix) => mix.id === currentID);
+
+    let transmitButton: React.JSX.Element;
+
+    if (store.isPlaying) {
+        transmitButton =
+            store.selectedId === currentID ? (
+                <NeuButton onClick={() => store.play(currentID)} toggled>
+                    TRANSMITTING...
+                </NeuButton>
+            ) : (
+                <NeuButton onClick={() => store.play(currentID)} toggled>
+                    STOP & RETRANSMIT
+                </NeuButton>
+            );
+    } else {
+        transmitButton = (
+            <NeuButton
+                onClick={() => store.play(currentID)}
+                data-testid="button.play-track"
+            >
+                PLAY TRANSMISSION
+            </NeuButton>
+        );
+    }
 
     return (
         <>
@@ -37,7 +62,7 @@ export const SectorDetail = observer((): React.JSX.Element => {
                     }}
                     className="w-180 p-4 bg-stone-950 absolute rounded-md shadow-[3px_3px_0px_black]"
                 >
-                    <div className="p-4 flex justify-between">
+                    <div className="p-4 pb-0 flex justify-between">
                         <h2 className="text-4xl" style={{ fontFamily: 'NeueHumanist' }}>
                             {currentMix?.name}
                         </h2>
@@ -45,26 +70,16 @@ export const SectorDetail = observer((): React.JSX.Element => {
                             <LucideX />
                         </div>
                     </div>
+                    <div className="px-4 py-1 flex">
+                        <TagDisplay tags={currentMix?.tags || []} />
+                    </div>
                     <div className="px-4 flex">
                         <div className="mr-4 w-48 h-48 border-4 rounded-md">image</div>
                         <div className="w-110 h-48 border-4 rounded-md">
                             {currentMix?.desc}
                         </div>
                     </div>
-                    <div className="pt-4">
-                        {store.isPlaying && store.selectedId === currentID ? (
-                            <NeuButton onClick={() => store.play(currentID)} toggled>
-                                TRANSMITTING...
-                            </NeuButton>
-                        ) : (
-                            <NeuButton
-                                onClick={() => store.play(currentID)}
-                                data-testid="button.play-track"
-                            >
-                                PLAY TRANSMISSION
-                            </NeuButton>
-                        )}
-                    </div>
+                    <div className="pt-4">{transmitButton}</div>
                 </div>
             </div>
         </>

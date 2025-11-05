@@ -25,9 +25,12 @@ export default function App(): React.JSX.Element {
 
     // Welcome screen re-routing based on cookie
     useEffect(() => {
-        const currCookie = document.cookie;
-        if (currCookie !== 'visited=true') {
-            useNav('/welcome');
+        // only show tutorial when nav to the main page, not any mix
+        if (document.location.pathname === '/') {
+            const currCookie = document.cookie;
+            if (currCookie !== 'visited=true') {
+                useNav('/welcome');
+            }
         }
     }, []);
 

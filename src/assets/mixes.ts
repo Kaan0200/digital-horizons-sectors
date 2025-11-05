@@ -87,15 +87,15 @@ export const Mixes: Array<MixData> = [
         type: MixType.Planet,
         name: 'Techno Zone',
         desc: 'A voyage through pounding beats.',
-        tags: [],
+        tags: ['techno', 'dark'],
         url: 'https://dhaudio.blob.core.windows.net/dh-audio-store/PLNT002_192k.mp3',
     },
     {
         id: 'PLNT003',
         type: MixType.Planet,
-        name: 'Mystery Space',
+        name: 'Progressive Space',
         desc: 'A voyage through a dark and swirling space.',
-        tags: [],
+        tags: ['dark'],
         url: 'https://dhaudio.blob.core.windows.net/dh-audio-store/PLNT003_192k.mp3',
     },
     {
@@ -104,7 +104,7 @@ export const Mixes: Array<MixData> = [
 
         name: 'Mystery Space',
         desc: 'A voyage through a dark and swirling space.',
-        tags: [],
+        tags: ['dark', 'vocals', 'deep'],
         url: 'https://dhaudio.blob.core.windows.net/dh-audio-store/PLNT004_192k.mp3',
     },
     {
@@ -112,8 +112,8 @@ export const Mixes: Array<MixData> = [
         type: MixType.Planet,
 
         name: 'Retrograde',
-        desc: '',
-        tags: [],
+        desc: 'A throwback themed mix filled with bass, tech, and breaks.',
+        tags: ['house', 'tech'],
         url: 'https://dhaudio.blob.core.windows.net/dh-audio-store/STRDST05-Retro Grade_320.mp3',
     },
 ];
