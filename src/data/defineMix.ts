@@ -11,10 +11,12 @@
  */
 
 export interface Track {
-  /** timecode, e.g. "06:12" or "1:02:30" */
+  /** timecode for display, e.g. "06:12" or "1:02:30" */
   t: string;
   /** "Artist — Title" */
   n: string;
+  /** start offset in seconds, parsed from `t` — powers "what's playing now" */
+  start: number;
 }
 
 export interface MixData {
@@ -55,6 +57,11 @@ export const defineMix = (mix: MixData): MixData => mix;
  *     06:12  Mell — Coastline (Dub)
  *   `
  */
+/** Parse a "mm:ss" / "h:mm:ss" timecode into seconds. */
+function toSeconds(tc: string): number {
+  return tc.split(':').reduce((acc, part) => acc * 60 + Number(part), 0);
+}
+
 export function tracks(strings: TemplateStringsArray, ...vals: unknown[]): Track[] {
   const raw = strings.reduce((acc, s, i) => acc + s + (i < vals.length ? String(vals[i]) : ''), '');
   return raw
@@ -63,6 +70,8 @@ export function tracks(strings: TemplateStringsArray, ...vals: unknown[]): Track
     .filter(Boolean)
     .map((line) => {
       const m = line.match(/^(\d{1,2}(?::\d{2}){1,2})\s+(.*)$/);
-      return m ? { t: m[1], n: m[2].trim() } : { t: '', n: line };
+      return m
+        ? { t: m[1], n: m[2].trim(), start: toSeconds(m[1]) }
+        : { t: '', n: line, start: 0 };
     });
 }

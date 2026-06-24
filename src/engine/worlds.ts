@@ -10,7 +10,7 @@
  * These are pure functions — the loaded catalog flows in from RootStore, which
  * calls `buildWorlds()` once the async `loadCatalog()` resolves.
  */
-import { MixData, Track } from '../content/defineMix';
+import { MixData, Track } from '../data/defineMix';
 import { mulberry32, seedFromId } from './seed';
 
 export type { Track };

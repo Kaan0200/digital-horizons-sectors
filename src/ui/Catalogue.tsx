@@ -34,6 +34,7 @@ const Catalogue = observer((): React.JSX.Element => {
                         return (
                             <button
                                 key={w.id}
+                                data-testid="catalogue-item"
                                 className={`item${store.focusedId === w.id ? ' active' : ''}${playing ? ' playing' : ''}`}
                                 style={
                                     { ['--c' as string]: w.color } as React.CSSProperties

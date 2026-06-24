@@ -35,7 +35,7 @@ const Hud = observer((): React.JSX.Element => {
 
     return (
         <div className="hud">
-            <div className="brand">
+            <div className="brand left-7 top-6 absolute flex items-center gap-3">
                 <div className="mark" />
                 <div>
                     <h1>Digital Horizons</h1>
@@ -55,6 +55,7 @@ const Hud = observer((): React.JSX.Element => {
                 <button
                     className="gbtn"
                     title="Open the catalogue"
+                    data-testid="open-catalogue"
                     onClick={() => store.openDrawer()}
                 >
                     ☰

@@ -37,7 +37,7 @@ const App = observer((): React.JSX.Element => {
     };
 
     return (
-        <div className="dh-app">
+        <div className="dh-app" data-testid="app">
             <StarMap
                 worlds={store.worlds}
                 edges={store.edges}
@@ -48,7 +48,7 @@ const App = observer((): React.JSX.Element => {
             />
             <Multiplayer />
             <Hud />
-            <SpecimenPlate />I
+            <SpecimenPlate />
             <DiscoPlanet />
             <Catalogue />
             <PlayerBar />

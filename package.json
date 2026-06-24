@@ -10,6 +10,8 @@
         "lint": "eslint ./src",
         "mix:new": "node scripts/new-mix.mjs",
         "type-check": "tsc",
+        "e2e": "cypress run",
+        "e2e:open": "cypress open",
         "prepare": "husky"
     },
     "dependencies": {

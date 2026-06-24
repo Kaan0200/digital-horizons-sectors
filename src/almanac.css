@@ -89,7 +89,6 @@
 .hud::before { left: 16px; top: 16px; border-right: 0; border-bottom: 0; border-radius: 14px 0 0 0; }
 .hud::after { right: 16px; bottom: 96px; border-left: 0; border-top: 0; border-radius: 0 0 14px 0; }
 
-.brand { position: absolute; left: 28px; top: 26px; display: flex; align-items: center; gap: 12px; }
 .brand .mark {
   width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--brass);
   position: relative; box-shadow: 0 0 16px rgba(201, 164, 104, 0.3), inset 0 0 8px rgba(201, 164, 104, 0.18);
@@ -136,12 +135,19 @@
 .meta .g { font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 1px; }
 .meta .g b { color: var(--brass); font-weight: 700; }
 
+/* now-playing track row (auto-selected from tracklist timecodes) */
+.nowtrack { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-family: var(--mono); font-size: 12px; color: var(--vellum); min-height: 18px; }
+.nowtrack .ico { color: var(--c, var(--brass)); font-size: 11px; flex: 0 0 auto; }
+/* cylinder viewport — clips the rolling faces; perspective gives the barrel curve */
+.nowtrack .nm { position: relative; flex: 1; min-width: 0; height: 18px; line-height: 18px; overflow: hidden; perspective: 320px; }
+.nowtrack .roll { position: absolute; inset: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; backface-visibility: hidden; transform-origin: center; }
+
 .transport { display: flex; align-items: center; gap: 8px; }
 .transport .gbtn { width: 38px; height: 38px; font-size: 15px; }
 .transport .play { width: 50px; height: 50px; font-size: 19px; background: var(--brass); border: none; color: var(--void); box-shadow: 0 0 18px rgba(201, 164, 104, 0.45); }
 .transport .play:hover { filter: brightness(1.08); }
 
-.scrub { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+
 .time { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 38px; }
 .time.r { text-align: right; }
 .bar { position: relative; flex: 1 1 auto; height: 8px; border-radius: 999px; background: rgba(120, 108, 160, 0.22); cursor: pointer; }

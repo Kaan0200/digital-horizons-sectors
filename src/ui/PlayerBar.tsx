@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import type React from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useStore } from '../stores/RootStore';
 import { warpTo } from '../engine/camera';
+import type { Track } from '../engine/worlds';
 
 const fmt = (sec: number): string => {
     if (!isFinite(sec) || sec < 0) sec = 0;
@@ -29,6 +31,16 @@ const durationOf = (audioEl?: HTMLAudioElement): number => {
     return 0;
 };
 
+/** The last track whose start time has passed — i.e. what's playing right now. */
+const currentTrackOf = (list: Track[], time: number): Track | undefined => {
+    let cur: Track | undefined;
+    for (const tr of list) {
+        if (tr.start <= time) cur = tr;
+        else break;
+    }
+    return cur;
+};
+
 /**
  * Bottom transport. Uses RootStore.play() for the actual audio; the scrubber
  * reads/writes the store's HTMLAudioElement directly.
@@ -42,6 +54,11 @@ const PlayerBar = observer((): React.JSX.Element => {
     const durRef = useRef<HTMLSpanElement>(null);
     const barRef = useRef<HTMLDivElement>(null);
     const scrubbing = useRef(false);
+    const reduceMotion = useReducedMotion();
+    // current song within the mix — React state so the change can animate.
+    // Updated only when it actually changes (rare), so no per-tick re-renders.
+    const [trackName, setTrackName] = useState('');
+    const trackNameRef = useRef('');
 
     // progress loop — writes to refs, no per-frame React state.
     useEffect(() => {
@@ -59,8 +76,21 @@ const PlayerBar = observer((): React.JSX.Element => {
             const pct = dur ? (cur / dur) * 100 : 0;
             if (fillRef.current) fillRef.current.style.width = `${pct}%`;
             if (knobRef.current) knobRef.current.style.left = `${pct}%`;
-            if (curRef.current) curRef.current.textContent = fmt(cur);
-            if (durRef.current) durRef.current.textContent = dur ? fmt(dur) : '0:00';
+            // Only touch the DOM when a value actually changes — assigning
+            // textContent replaces the text node even when the string is equal,
+            // which churns these nodes every tick (and even while paused).
+            const curTxt = fmt(cur);
+            if (curRef.current && curRef.current.textContent !== curTxt) curRef.current.textContent = curTxt;
+            const durTxt = dur ? fmt(dur) : '0:00';
+            if (durRef.current && durRef.current.textContent !== durTxt) durRef.current.textContent = durTxt;
+            // which song within the mix is playing now, by timecode
+            const w = store.selectedId ? store.worldById(store.selectedId) : undefined;
+            const nowTrack = w && w.tracks.length ? currentTrackOf(w.tracks, cur) : undefined;
+            const name = nowTrack ? nowTrack.n : '';
+            if (name !== trackNameRef.current) {
+                trackNameRef.current = name;
+                setTrackName(name);
+            }
         };
         tick();
         return () => cancelAnimationFrame(raf);
@@ -122,7 +152,9 @@ const PlayerBar = observer((): React.JSX.Element => {
             <div className="row">
                 <div className="art" />
                 <div className="meta">
-                    <div className="t">{world ? world.name : 'No signal'}</div>
+                    <div className="t" data-testid="now-playing">
+                        {world ? world.name : 'No signal'}
+                    </div>
                     <div className="g">
                         {world ? (
                             <>
@@ -149,7 +181,29 @@ const PlayerBar = observer((): React.JSX.Element => {
                     </button>
                 </div>
             </div>
-            <div className="scrub">
+            {world && world.tracks.length > 0 && (
+                <div className="nowtrack" data-testid="now-track">
+                    <span className="ico">♪</span>
+                    <span className="nm">
+                        <AnimatePresence initial={false}>
+                            <motion.span
+                                key={trackName}
+                                className="roll"
+                                initial={{ rotateX: -90, y: '90%', opacity: 0 }}
+                                animate={{ rotateX: 0, y: '0%', opacity: 1 }}
+                                exit={{ rotateX: 90, y: '-90%', opacity: 0 }}
+                                transition={{
+                                    duration: reduceMotion ? 0 : 0.5,
+                                    ease: [0.6, 0, 0.2, 1],
+                                }}
+                            >
+                                {trackName}
+                            </motion.span>
+                        </AnimatePresence>
+                    </span>
+                </div>
+            )}
+            <div className="flex items-center gap-2 mt-3">
                 <span className="time" ref={curRef}>
                     0:00
                 </span>
