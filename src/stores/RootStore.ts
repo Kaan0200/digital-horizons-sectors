@@ -1,9 +1,9 @@
 import { createContext, useContext } from 'react';
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { Peer } from '../almanac/presence';
-import { buildConstellation, buildWorlds, World } from '../almanac/worlds';
-import { loadCatalog as fetchCatalog } from '../content/catalog';
+import { Peer } from '../engine/presence';
+import { buildConstellation, buildWorlds, World } from '../engine/worlds';
+import { loadCatalog as fetchCatalog } from '../data/catalog';
 import { UserStore } from './UserStore';
 
 export class RootStore {
@@ -57,7 +57,8 @@ export class RootStore {
     /** Count of *other* listeners tuned to each mix id. */
     get listenerCounts(): Record<string, number> {
         const counts: Record<string, number> = {};
-        for (const p of this.peers) if (p.listeningTo) counts[p.listeningTo] = (counts[p.listeningTo] ?? 0) + 1;
+        for (const p of this.peers)
+            if (p.listeningTo) counts[p.listeningTo] = (counts[p.listeningTo] ?? 0) + 1;
         return counts;
     }
 

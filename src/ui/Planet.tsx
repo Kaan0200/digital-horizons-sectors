@@ -2,11 +2,17 @@ import p5 from 'p5';
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 
-import { makePlanetSketch } from './sketches';
-import type { World } from './worlds';
+import { makePlanetSketch } from '../engine/sketches';
+import type { World } from '../engine/worlds';
 
 /** A living procedural planet for one world. Rebuilds when the world changes. */
-export default function Planet({ world, spinning = true }: { world: World; spinning?: boolean }): React.JSX.Element {
+export default function Planet({
+    world,
+    spinning = true,
+}: {
+    world: World;
+    spinning?: boolean;
+}): React.JSX.Element {
     const ref = useRef<HTMLDivElement>(null);
     // Live spin flag — read by the sketch each frame so toggling play/pause
     // starts/stops the rotation without rebuilding the planet.
@@ -21,7 +27,10 @@ export default function Planet({ world, spinning = true }: { world: World; spinn
         // one planet even under StrictMode's mount/remount double-invoke.
         const mount = document.createElement('div');
         host.appendChild(mount);
-        const inst = new p5(makePlanetSketch(world, () => spinningRef.current), mount);
+        const inst = new p5(
+            makePlanetSketch(world, () => spinningRef.current),
+            mount,
+        );
         return () => {
             try {
                 inst.remove();

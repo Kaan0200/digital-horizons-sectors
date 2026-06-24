@@ -1,4 +1,4 @@
-import { defineMix, tracks } from '../../content/defineMix';
+import { defineMix, tracks } from '../defineMix';
 
 export default defineMix({
     id: 'STRDST05',

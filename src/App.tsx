@@ -2,19 +2,19 @@ import { observer } from 'mobx-react';
 import type React from 'react';
 import { useEffect } from 'react';
 
-import './almanac/almanac.css';
+import './almanac.css';
 
-import Catalogue from './almanac/Catalogue';
-import { warpTo } from './almanac/camera';
-import Hud from './almanac/Hud';
-import Multiplayer from './almanac/Multiplayer';
-import PlayerBar from './almanac/PlayerBar';
-import ShipCursor from './almanac/ShipCursor';
-import SpecimenPlate from './almanac/SpecimenPlate';
-import StarMap from './almanac/StarMap';
-import { World } from './almanac/worlds';
+import Catalogue from './ui/Catalogue';
+import { warpTo } from './engine/camera';
+import Hud from './ui/Hud';
+import Multiplayer from './ui/Multiplayer';
+import PlayerBar from './ui/PlayerBar';
+import ShipCursor from './ui/ShipCursor';
+import SpecimenPlate from './ui/SpecimenPlate';
+import StarMap from './ui/StarMap';
+import { World } from './engine/worlds';
 import { useStore } from './stores/RootStore';
-import DiscoPlanet from './almanac/DiscoPlanet';
+import DiscoPlanet from './ui/DiscoPlanet';
 
 /**
  * Night Almanac shell. The chart is the base layer; the HUD, specimen plate,

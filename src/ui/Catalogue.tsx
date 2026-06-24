@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import type React from 'react';
 
 import { useStore } from '../stores/RootStore';
-import { warpTo } from './camera';
+import { warpTo } from '../engine/camera';
 
 /** Slide-in catalogue of every world; selecting one warps + tunes in. */
 const Catalogue = observer((): React.JSX.Element => {

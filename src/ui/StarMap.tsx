@@ -1,10 +1,10 @@
 import type React from 'react';
 import { useEffect, useRef } from 'react';
 
-import { camera, camState, camVel } from './camera';
-import { hash2, mulberry32 } from './seed';
+import { camera, camState, camVel } from '../engine/camera';
+import { hash2, mulberry32 } from '../engine/seed';
 import TopoField from './TopoField';
-import type { World } from './worlds';
+import type { World } from '../engine/worlds';
 
 interface Star {
     x: number;

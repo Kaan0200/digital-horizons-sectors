@@ -3,7 +3,7 @@ import type React from 'react';
 import { useEffect, useRef } from 'react';
 
 import { useStore } from '../stores/RootStore';
-import { warpTo } from './camera';
+import { warpTo } from '../engine/camera';
 
 const fmt = (sec: number): string => {
     if (!isFinite(sec) || sec < 0) sec = 0;
