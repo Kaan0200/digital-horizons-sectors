@@ -1,36 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-let supabase = undefined;
-let supabaseUrl;
-let supabaseKey;
+/**
+ * Supabase client for Realtime presence (multiplayer). Exported as nullable:
+ * if env vars are missing or the client can't be built, this is `null` and the
+ * app runs fine solo — callers must null-check. No Postgres tables are needed;
+ * presence rides the Realtime websocket.
+ */
+const url = import.meta.env.VITE_APP_SUPABASE_URL as string | undefined;
+const key = import.meta.env.VITE_APP_SUPABASE_ANON_KEY as string | undefined;
 
-// DEV
-try {
-    supabaseUrl = import.meta.env.VITE_APP_SUPABASE_URL;
-    supabaseKey = import.meta.env.VITE_APP_SUPABASE_ANON_KEY;
-} catch (e: unknown) {
-    console.error('Unable to retrieve env variables, via meta.env');
+let client: SupabaseClient | null = null;
+
+if (url && key) {
+  try {
+    client = createClient(url, key, {
+      realtime: { params: { eventsPerSecond: 5 } },
+      auth: { persistSession: false },
+    });
+  } catch (e) {
+    console.warn('[DH] Could not create Supabase client; multiplayer disabled.', e);
+    client = null;
+  }
+} else {
+  console.info('[DH] Supabase env not set; multiplayer disabled.');
 }
 
-// PROD
-try {
-    if (!supabaseUrl) {
-        supabaseUrl = process.env.VITE_APP_SUPABASE_URL;
-    }
-    if (!supabaseKey) {
-        supabaseKey = process.env.VITE_APP_SUPABASE_ANON_KEY;
-    }
-} catch (e: unknown) {
-    console.error('Unable to retrieve env variables, via process.env');
-}
-
-// create client library
-try {
-    supabase = createClient(supabaseUrl || '', supabaseKey || '');
-} catch (e: unknown) {
-    console.error('[DH App] Unable to connect multiplayer. Unable to create supabase client.');
-}
-
-
-export default supabase;
+export const supabase = client;
+export default client;

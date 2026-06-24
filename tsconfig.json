@@ -18,5 +18,7 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
+  // Decommissioned files are marked *.old.* and excluded from the build.
+  "exclude": ["**/*.old.ts", "**/*.old.tsx"],
   "references": [{ "path": "./tsconfig.vite.json" }]
 }

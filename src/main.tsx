@@ -2,38 +2,20 @@ import './index.css';
 
 import React from 'react';
 import { createRoot, Root } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router';
 
 import App from './App';
-import SectorDetail from './pages/SectorDetail';
 import { RootStore, RootStoreContext } from './stores/RootStore';
-import { WelcomeSplash } from './pages/WelcomeSplash';
 
 const container = document.getElementById('root');
 const root: Root = createRoot(container!);
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    Component: App,
-    children: [
-      {
-        path: '/:id',
-        Component: SectorDetail,
-      },
-      {
-        path: '/welcome',
-        Component: WelcomeSplash,
-      }
-    ],
-    //loader: loadRootData,
-  },
-]);
-
+// The Night Almanac is a single full-screen chart; the specimen plate is an
+// overlay rather than a route, so no router is needed for the base experience.
+// (Previous routed entry preserved in main.old.tsx.)
 root.render(
   <React.StrictMode>
     <RootStoreContext.Provider value={new RootStore()}>
-      <RouterProvider router={router} />
+      <App />
     </RootStoreContext.Provider>
   </React.StrictMode>,
 );

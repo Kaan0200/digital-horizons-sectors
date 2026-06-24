@@ -1,0 +1,18 @@
+language: "typescript"
+type: "application"
+
+tasks:
+  dev:
+    command: "pnpm dev"
+    local: true
+  build:
+    command: "pnpm build"
+    local: true
+  lint:
+    command: "pnpm lint"
+  lint-fix:
+    command: "pnpm lint:fix"
+  lint-format:
+    command: "pnpm lint:format"
+  type-check:
+    command: "pnpm type-check"

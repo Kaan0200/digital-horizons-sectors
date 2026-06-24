@@ -4,3 +4,6 @@ dist
 dist-ssr
 *.local
 node_modules/*
+
+# Claude Code local runtime (the .claude/skills junction → .agents/skills)
+.claude/

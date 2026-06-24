@@ -24,6 +24,6 @@ export default defineConfig({
         }),
     ],
     server: {
-        host: '192.168.50.184', // effects dev only
+        host: true, // bind all interfaces — localhost AND the LAN IP both work
     },
 });
