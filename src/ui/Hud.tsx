@@ -35,7 +35,10 @@ const Hud = observer((): React.JSX.Element => {
 
     return (
         <div className="hud">
-            <div className="brand left-7 top-6 absolute flex items-center gap-3">
+            <div
+                className="brand left-7 top-6 absolute flex items-center gap-3"
+                onClick={() => recenter()}
+            >
                 <div className="mark" />
                 <div>
                     <h1>Digital Horizons</h1>
@@ -45,13 +48,6 @@ const Hud = observer((): React.JSX.Element => {
             <div className="coords" ref={coordRef} />
 
             <div className="topright">
-                <button
-                    className="gbtn"
-                    title="Return to origin"
-                    onClick={() => recenter()}
-                >
-                    ⌖
-                </button>
                 <button
                     className="gbtn"
                     title="Open the catalogue"

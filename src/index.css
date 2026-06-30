@@ -6,6 +6,12 @@
   url('../resources/Y1NeueHumanist.otf');
 }
 
+@font-face {
+  font-family: 'SmokeKnife';
+  src: local("SmokeKnife"),
+  url('../resources/SmokeKnife.otf');
+}
+
 @theme {
   --color-mint: #ADF1D2;
   --color-plum-700: #331F33;

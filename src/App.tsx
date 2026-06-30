@@ -10,6 +10,7 @@ import Hud from './ui/Hud';
 import Multiplayer from './ui/Multiplayer';
 import PlayerBar from './ui/PlayerBar';
 import ShipCursor from './ui/ShipCursor';
+import Splash from './ui/Splash';
 import SpecimenPlate from './ui/SpecimenPlate';
 import StarMap from './ui/StarMap';
 import { World } from './engine/worlds';
@@ -53,6 +54,7 @@ const App = observer((): React.JSX.Element => {
             <Catalogue />
             <PlayerBar />
             <ShipCursor />
+            <Splash />
         </div>
     );
 });
