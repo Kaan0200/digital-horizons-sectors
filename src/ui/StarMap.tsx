@@ -109,10 +109,13 @@ export default function StarMap({
         window.addEventListener('resize', resize);
 
         // --- drag to pan with inertia ---
-        // A press starts a *potential* drag. We only commit to dragging (and capture
-        // the pointer) once it moves past DRAG_THRESHOLD — otherwise the press is a
-        // click and must reach the node's button untouched. Capturing on pointerdown
-        // would redirect the click to the stage and swallow node selection.
+        /**
+         * Controls a click becoming a drag by creating a threshold of pixels that
+         * the pointer must move before the mouse action is considered a drag.
+         *
+         * @warning
+         * Click must be passed down, so it can land on the page and hit nodes.
+         */
         const DRAG_THRESHOLD = 4;
         let pressing = false;
         let dragging = false;

@@ -175,7 +175,7 @@
 .planetWrap canvas { display: block; }
 .dBody { padding: 14px 22px 22px; overflow-y: auto; }
 .detail .genre { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c, var(--teal)); }
-.detail h2 { font-family: var(--display); font-size: 27px; font-weight: 700; line-height: 1; letter-spacing: -0.01em; margin: 3px 0 8px; }
+.detail h2 { font-family: 'SmokeKnife'; font-size: 27px; font-weight: 700; line-height: 1; letter-spacing: -0.01em; margin: 3px 0 8px; }
 .catline { font-family: var(--mono); font-size: 11px; color: var(--brass); letter-spacing: 0.04em; padding-bottom: 12px; margin-bottom: 13px; border-bottom: 1px solid var(--stroke); }
 .catline .sep { color: var(--brass-dim); margin: 0 7px; }
 .detail .desc { font-size: 13.5px; line-height: 1.7; color: #d9d1be; margin: 0 0 18px; }
