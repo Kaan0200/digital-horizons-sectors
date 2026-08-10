@@ -5,6 +5,7 @@ export default defineMix({
     name: 'Harder Darker',
     tags: ['bass', 'tech', 'pop'],
     url: 'https://dhaudio.blob.core.windows.net/dh-audio-store/STRDST06-Darker_320.mp3',
+    mixer: '',
     desc: `
     A bassy dark mix full of tech and saucy vocals.  Live Recording of a dj set performed
     in cleveland.

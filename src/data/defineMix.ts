@@ -29,6 +29,8 @@ export interface MixData {
   url: string;
   /** prose description (one or more paragraphs) */
   desc: string;
+  /** who mixed this audio, e.g. "DJ Nova" */
+  mixer?: string;
   /** ordered tracklist */
   tracklist: Track[];
 

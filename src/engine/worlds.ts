@@ -20,6 +20,7 @@ export interface World {
   name: string;
   genre: string;
   desc: string;
+  mixer?: string;
   url: string;
   color: string;
   x: number;
@@ -49,6 +50,7 @@ function buildWorld(mix: MixData, i: number): World {
     name: mix.name,
     genre: genreOf(mix),
     desc: mix.desc.trim(),
+    mixer: mix.mixer,
     url: mix.url,
     color: mix.color ?? SPECTRA[i % SPECTRA.length],
     x: mix.x ?? Math.round(Math.cos(ang) * radius),

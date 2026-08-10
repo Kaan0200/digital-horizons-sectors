@@ -31,6 +31,7 @@ export default defineMix({
   name: '${name}',
   tags: [],
   url: 'https://dhaudio.blob.core.windows.net/dh-audio-store/${id}.mp3',
+  mixer: '',
   desc: \`
     Write the mix description here — multiline, no escaping needed.
   \`,
@@ -42,4 +43,4 @@ export default defineMix({
 
 writeFileSync(file, template);
 console.log(`Created ${file}`);
-console.log('It is already registered (auto-glob). Fill in tags, url, desc, and the tracklist.');
+console.log('It is already registered (auto-glob). Fill in tags, url, mixer, desc, and the tracklist.');

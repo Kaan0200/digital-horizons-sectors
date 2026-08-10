@@ -31,6 +31,13 @@ const SpecimenPlate = observer((): React.JSX.Element => {
                             mag {world.mag}
                         </div>
                         <div className="catline">{world.genre}</div>
+                        {world.mixer && (
+                            <div className="catline">
+                                mixed by
+                                <span className="sep">/</span>
+                                {world.mixer}
+                            </div>
+                        )}
                         <p className="desc">{world.desc}</p>
                         <div className="tlHead">Transit Log</div>
                         {world.tracks.length ? (

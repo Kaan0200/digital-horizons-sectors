@@ -5,6 +5,7 @@ export default defineMix({
     name: 'Retrograde',
     tags: ['house', 'tech'],
     url: 'https://dhaudio.blob.core.windows.net/dh-audio-store/STRDST05-Retro Grade_320.mp3',
+    mixer: '',
     desc: `
     A throwback themed mix filled with bass, tech, and breaks.
   `,
