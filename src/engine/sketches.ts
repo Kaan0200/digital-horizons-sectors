@@ -10,6 +10,7 @@
  * just mount/unmount them.
  */
 import p5 from 'p5';
+import type p5 from '@types/p5';
 
 import { camera } from './camera';
 import { hexToRgb, hslToRgb, rgbToHsl, seedFromId } from './seed';
@@ -21,7 +22,7 @@ import type { World } from './worlds';
 const SPIN_SPEED = 0.009;
 
 // FES adds heavy overhead; disable once at module load.
-(p5 as any).disableFriendlyErrors = true;
+(p5 as p5).disableFriendlyErrors = true;
 
 /* ---------------- topographic field ---------------- */
 export function makeFieldSketch() {
@@ -29,7 +30,7 @@ export function makeFieldSketch() {
     const LEVELS = [0.36, 0.46, 0.56, 0.66, 0.74];
     const SCALE = 0.00165;
     const PARALLAX = 0.5;
-    return (p: any) => {
+    return (p: p5) => {
         let cols = 0;
         let rows = 0;
         let vals: Float32Array = new Float32Array(0);
@@ -191,7 +192,7 @@ export function makePlanetSketch(world: World, isSpinning?: () => boolean) {
         return v.map((x) => x / m);
     })();
 
-    return (p: any) => {
+    return (p: p5) => {
         const TW = 200;
         const TH = 100;
         let tr: Uint8ClampedArray;
@@ -207,7 +208,7 @@ export function makePlanetSketch(world: World, isSpinning?: () => boolean) {
         let y1 = 0;
         let rot = 0;
         const bgStars: Array<{ x: number; y: number; s: number; a: number }> = [];
-        let moon: any = null;
+        let moon: unknown = null;
 
         const fbm = (x: number, y: number, z: number) => {
             let v = 0;
